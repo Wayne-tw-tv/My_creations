@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>青焙咖啡｜重新認識咖啡的香氣</title>
+    <meta
+      name="description"
+      content="青焙咖啡堅持自家烘焙，保留自然果香與醇厚口感。少了苦澀，多了層次，讓不愛喝咖啡的人也能輕鬆愛上。"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="青焙咖啡｜重新認識咖啡的香氣" />
+    <meta
+      property="og:description"
+      content="青焙咖啡堅持自家烘焙，保留自然果香與醇厚口感。少了苦澀，多了層次，讓不愛喝咖啡的人也能輕鬆愛上。"
+    />
+    <meta property="og:image" content="images/hero-pour_g1.jpg" />
+    <meta property="og:locale" content="zh_TW" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="青焙咖啡｜重新認識咖啡的香氣" />
+    <meta
+      name="twitter:description"
+      content="青焙咖啡堅持自家烘焙，保留自然果香與醇厚口感。少了苦澀，多了層次。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+TC:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/sections.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header__inner">
+        <a href="#hero" class="header__logo" aria-label="青焙咖啡，回到頁首">
+          <span class="header__logo-mark">青焙</span>
+          <span class="header__logo-text">咖啡</span>
+        </a>
+
+        <button
+          class="header__toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          aria-label="開啟選單"
+        >
+          <span class="header__toggle-bar" aria-hidden="true"></span>
+          <span class="header__toggle-bar" aria-hidden="true"></span>
+          <span class="header__toggle-bar" aria-hidden="true"></span>
+        </button>
+
+        <nav class="header__nav" id="site-nav" aria-label="主要導覽">
+          <ul class="header__menu">
+            <li><a href="#hero" class="header__link">首頁</a></li>
+            <li><a href="#pain-points" class="header__link">認識咖啡</a></li>
+            <li><a href="#features" class="header__link">烘焙特色</a></li>
+            <li><a href="#flavors" class="header__link">風味介紹</a></li>
+            <li><a href="#products" class="header__link">人氣商品</a></li>
+            <li><a href="#story" class="header__link">品牌故事</a></li>
+            <li><a href="#testimonials" class="header__link">顧客評價</a></li>
+          </ul>
+          <a class="btn btn--secondary btn--sm header__cta" data-link="line">加入 LINE</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Section 1: Hero -->
+      <section class="section hero" id="hero">
+        <div class="container hero__inner">
+          <div class="hero__content">
+            <p class="hero__eyebrow">Green Roast Coffee</p>
+            <h1 class="hero__title">重新認識咖啡的香氣。</h1>
+            <p class="hero__subtitle">
+              青焙咖啡堅持自家烘焙咖啡豆，保留自然果香與醇厚口感。
+              少了苦澀，多了層次，讓不愛喝咖啡的人也能輕鬆愛上。
+            </p>
+            <div class="hero__actions">
+              <a class="btn btn--primary" data-link="products">立即查看產品</a>
+              <a class="btn btn--outline" data-link="line">加入 LINE 領取優惠</a>
+            </div>
+          </div>
+          <div class="hero__visual">
+            <div class="hero__image-wrapper">
+              <img
+                src="images/hero-pour_g1.jpg"
+                alt="手沖咖啡特寫"
+                class="hero__image"
+                width="600"
+                height="800"
+              />
+              <div class="hero__overlay" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+        <div class="hero__gradient" aria-hidden="true"></div>
+      </section>
+
+      <!-- Section 2: Pain Points -->
+      <section class="section section-reveal" id="pain-points">
+        <div class="container">
+          <div class="section-title section-title--center">
+            <h2 class="section-title__heading">
+              不是你不喜歡咖啡，而是還沒遇到適合的咖啡。
+            </h2>
+          </div>
+          <div class="pain-points__grid">
+            <article class="card pain-points__card">
+              <span class="pain-points__icon" aria-hidden="true">☕</span>
+              <h3 class="pain-points__card-title">太苦</h3>
+              <p class="pain-points__card-text">
+                喝一口就皺眉，糖和奶精加到懷疑人生。
+              </p>
+            </article>
+            <article class="card pain-points__card">
+              <span class="pain-points__icon" aria-hidden="true">☕</span>
+              <h3 class="pain-points__card-title">太重</h3>
+              <p class="pain-points__card-text">
+                喝完胃不舒服，總覺得身體有負擔。
+              </p>
+            </article>
+            <article class="card pain-points__card">
+              <span class="pain-points__icon" aria-hidden="true">☕</span>
+              <h3 class="pain-points__card-title">太無聊</h3>
+              <p class="pain-points__card-text">
+                只有苦味，喝不出大家口中的香氣與層次。
+              </p>
+            </article>
+          </div>
+          <p class="pain-points__closing">
+            青焙咖啡希望讓更多年輕人發現，原來咖啡可以自然回甘、帶有果香，甚至不加糖也能好喝。
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 3: Features -->
+      <section class="section section-reveal features" id="features">
+        <div class="container">
+          <div class="section-title section-title--center">
+            <h2 class="section-title__heading">
+              從生豆到烘焙，每一步都為了更好的風味。
+            </h2>
+          </div>
+          <div class="features__grid">
+            <article class="features__item">
+              <span class="features__number">01</span>
+              <h3 class="features__title">新鮮烘焙</h3>
+              <p class="features__description">
+                接單後安排新鮮烘焙，保留最佳香氣表現。
+              </p>
+            </article>
+            <article class="features__item">
+              <span class="features__number">02</span>
+              <h3 class="features__title">自然果香</h3>
+              <p class="features__description">
+                精選優質咖啡豆，展現不同產區獨特果香與花香。
+              </p>
+            </article>
+            <article class="features__item">
+              <span class="features__number">03</span>
+              <h3 class="features__title">溫潤順口</h3>
+              <p class="features__description">
+                降低刺激與苦澀感，即使初次接觸咖啡也容易接受。
+              </p>
+            </article>
+            <article class="features__item">
+              <span class="features__number">04</span>
+              <h3 class="features__title">低負擔</h3>
+              <p class="features__description">
+                無需大量糖分修飾，保留咖啡原始風味與低熱量特性。
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Flavors -->
+      <section class="section section-reveal" id="flavors">
+        <div class="container">
+          <div class="section-title section-title--center">
+            <h2 class="section-title__heading">喝得到的不只是咖啡味。</h2>
+          </div>
+          <div class="flavors__grid">
+            <article class="card flavors__card">
+              <span class="flavors__icon" aria-hidden="true">🍊</span>
+              <h3 class="flavors__title">柑橘果香</h3>
+              <p class="flavors__description">
+                清爽明亮，入口帶有自然水果香氣。
+              </p>
+            </article>
+            <article class="card flavors__card">
+              <span class="flavors__icon" aria-hidden="true">🍫</span>
+              <h3 class="flavors__title">濃醇香氣</h3>
+              <p class="flavors__description">
+                豐富層次感，香氣持久而不厚重。
+              </p>
+            </article>
+            <article class="card flavors__card">
+              <span class="flavors__icon" aria-hidden="true">🌰</span>
+              <h3 class="flavors__title">回甘尾韻</h3>
+              <p class="flavors__description">
+                順口不苦澀，每一口都留下舒服餘韻。
+              </p>
+            </article>
+          </div>
+          <div class="flavors__message">
+            <p>我們相信好的咖啡，不該只是提神工具。</p>
+            <p>它更像是一段放慢步調的時光，讓香氣陪伴你的日常。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 5: Products -->
+      <section class="section section-reveal products" id="products">
+        <div class="container">
+          <div class="section-title section-title--center">
+            <h2 class="section-title__heading">找到屬於你的第一杯青焙咖啡</h2>
+          </div>
+          <div class="products__grid">
+            <article class="products__card">
+              <div class="products__image-wrapper">
+                <img
+                  src="images/product-c1.jpg"
+                  alt="果香配方豆"
+                  class="products__image"
+                  loading="lazy"
+                  width="400"
+                  height="300"
+                />
+              </div>
+              <div class="products__body">
+                <h3 class="products__name">青焙果香配方豆</h3>
+                <p class="products__audience">適合初學者</p>
+                <ul class="products__tags">
+                  <li>柑橘香氣</li>
+                  <li>低苦感</li>
+                  <li>順口易飲</li>
+                </ul>
+              </div>
+            </article>
+            <article class="products__card">
+              <div class="products__image-wrapper">
+                <img
+                  src="images/product-c2.jpg"
+                  alt="經典醇厚配方"
+                  class="products__image"
+                  loading="lazy"
+                  width="400"
+                  height="300"
+                />
+              </div>
+              <div class="products__body">
+                <h3 class="products__name">青焙經典醇厚配方</h3>
+                <p class="products__audience">適合日常飲用</p>
+                <ul class="products__tags">
+                  <li>堅果香</li>
+                  <li>焦糖尾韻</li>
+                  <li>平衡風味</li>
+                </ul>
+              </div>
+            </article>
+            <article class="products__card">
+              <div class="products__image-wrapper">
+                <img
+                  src="images/product-c3.jpg"
+                  alt="精品單品系列"
+                  class="products__image"
+                  loading="lazy"
+                  width="400"
+                  height="300"
+                />
+              </div>
+              <div class="products__body">
+                <h3 class="products__name">青焙精品單品系列</h3>
+                <p class="products__audience">適合進階玩家</p>
+                <ul class="products__tags">
+                  <li>產區特色明顯</li>
+                  <li>花香果香豐富</li>
+                  <li>風味層次多元</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+          <div class="products__cta">
+            <a class="btn btn--primary" data-link="products">查看全部商品</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 6: Brand Story -->
+      <section class="section section-reveal" id="story">
+        <div class="container">
+          <div class="story__inner">
+            <div class="story__content">
+              <div class="section-title section-title--left">
+                <h2 class="section-title__heading">
+                  青焙咖啡，獻給想開始喝咖啡的人。
+                </h2>
+              </div>
+              <div class="story__text">
+                <p>
+                  我們發現許多年輕人並不是排斥咖啡，而是被過度苦澀的印象拒於門外。
+                </p>
+                <p>
+                  因此，青焙咖啡專注於自家烘焙，透過不同烘焙曲線調整，
+                  讓咖啡保有自然香氣與平衡口感。
+                </p>
+                <p>
+                  希望每一位第一次喝咖啡的人，都能找到屬於自己的那份喜歡。
+                </p>
+              </div>
+            </div>
+            <div class="story__visual">
+              <div class="story__image-wrapper">
+                <img
+                  src="images/story-lifestyle.jpg"
+                  alt="咖啡生活情境"
+                  class="story__image"
+                  loading="lazy"
+                  width="600"
+                  height="800"
+                />
+                <div class="story__overlay" aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 7: Testimonials -->
+      <section class="section section-reveal testimonials" id="testimonials">
+        <div class="container">
+          <div class="section-title section-title--center">
+            <h2 class="section-title__heading">第一次覺得黑咖啡可以這麼順口</h2>
+          </div>
+          <div class="testimonials__grid">
+            <article class="card">
+              <div class="testimonials__stars" aria-label="五星評價">★★★★★</div>
+              <blockquote class="testimonials__quote">
+                <p>
+                  以前完全不喝黑咖啡，朋友推薦後試喝，居然有水果香味，完全顛覆我的印象。
+                </p>
+              </blockquote>
+            </article>
+            <article class="card">
+              <div class="testimonials__stars" aria-label="五星評價">★★★★★</div>
+              <blockquote class="testimonials__quote">
+                <p>不加糖也很好喝，每天上班前都會泡一杯。</p>
+              </blockquote>
+            </article>
+            <article class="card">
+              <div class="testimonials__stars" aria-label="五星評價">★★★★★</div>
+              <blockquote class="testimonials__quote">
+                <p>包裝很有質感，送朋友也很適合。</p>
+              </blockquote>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 8: Final CTA -->
+      <section class="section section-reveal final-cta" id="cta">
+        <div class="container final-cta__inner">
+          <h2 class="final-cta__title">
+            讓第一杯真正好喝的咖啡，從今天開始。
+          </h2>
+          <p class="final-cta__text">
+            加入 LINE 獲得最新烘焙資訊、新品上市通知與專屬優惠。
+          </p>
+          <div class="final-cta__actions">
+            <a class="btn btn--light" data-link="line">加入 LINE</a>
+            <a class="btn btn--outline final-cta__outline" data-link="products">立即選購</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__brand">
+          <p class="footer__name">青焙咖啡</p>
+          <p class="footer__tagline">每日新鮮烘焙，只為呈現最好的咖啡風味。</p>
+        </div>
+        <nav class="footer__social" aria-label="社群連結">
+          <a data-link="facebook">Facebook</a>
+          <a data-link="instagram">Instagram</a>
+          <a data-link="line">LINE Official Account</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
