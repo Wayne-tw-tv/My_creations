@@ -124,7 +124,11 @@
   }
 
   function resetToDefaults() {
-    setSettings(global.LuckySpin.storage.DEFAULT_SETTINGS);
+    var defaults = Object.assign({}, global.LuckySpin.storage.DEFAULT_SETTINGS);
+    Object.assign(settings, defaults);
+    syncUI();
+    global.LuckySpin.storage.saveSettings(Object.assign({}, settings));
+    notifyChange();
   }
 
   global.LuckySpin = global.LuckySpin || {};

@@ -11,9 +11,9 @@
     if (!confirm('確定要重新開始嗎？這將清除名單、中獎紀錄並重置設定。')) return;
 
     global.LuckySpin.storage.clearAll();
+    global.LuckySpin.settings.resetToDefaults();
     global.LuckySpin.nameList.setNames([]);
     global.LuckySpin.winners.reset();
-    global.LuckySpin.settings.resetToDefaults();
 
     var input = document.getElementById('name-input');
     if (input) input.value = '';
