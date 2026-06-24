@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>幸運轉盤 Lucky Spin</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header__inner container">
+      <a href="#" class="logo">
+        <span class="logo__icon">🎡</span>
+        <span class="logo__text">
+          <span class="logo__title">幸運轉盤</span>
+          <span class="logo__subtitle">Lucky Spin</span>
+        </span>
+      </a>
+      <nav class="nav">
+        <a href="#wheel-area" class="nav__link">開始抽獎</a>
+        <a href="#instructions" class="nav__link">使用方式</a>
+        <a href="#fairness" class="nav__link">公平性說明</a>
+        <a href="#winners" class="nav__link">中獎紀錄</a>
+        <button type="button" class="nav__link nav__link--btn" id="btn-reset-all">重新開始</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="container hero__inner">
+        <h1 class="hero__title">今天的幸運兒，是誰？</h1>
+        <p class="hero__subtitle">
+          貼上抽獎名單，轉動幸運轉盤，<br>
+          讓指針決定下一位得獎者！
+        </p>
+        <div class="hero__decor" aria-hidden="true">
+          <span class="hero__star">✦</span>
+          <span class="hero__star hero__star--2">✦</span>
+          <span class="hero__star hero__star--3">★</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="main-grid container" id="main-grid">
+      <div class="main-grid__left">
+        <section class="panel name-list" id="name-list">
+          <h2 class="panel__title">輸入抽獎名單</h2>
+          <p class="panel__desc">每行輸入一位參加者名稱，也可以直接貼上 Excel 名單。</p>
+          <textarea
+            class="name-list__input"
+            id="name-input"
+            rows="6"
+            placeholder="王小明&#10;陳小華&#10;林小美&#10;張大偉&#10;李小婷"
+          ></textarea>
+          <div class="name-list__actions">
+            <button type="button" class="btn btn--secondary" id="btn-add-names">加入名單</button>
+            <button type="button" class="btn btn--outline" id="btn-clear-names">清除名單</button>
+            <button type="button" class="btn btn--outline" id="btn-sample-names">範例名單</button>
+          </div>
+          <p class="name-list__count" id="name-count">目前共有 0 位參加者</p>
+          <div class="name-list__preview" id="name-preview">
+            <p class="name-list__empty" id="name-empty">還沒有參加者名單，先輸入幾位幸運候選人吧！</p>
+          </div>
+        </section>
+
+        <section class="panel settings" id="settings">
+          <h2 class="panel__title">抽獎設定</h2>
+          <div class="settings__row">
+            <label for="draw-count" class="settings__label">本次抽出人數：</label>
+            <select id="draw-count" class="settings__select">
+              <option value="1" selected>1 人</option>
+              <option value="2">2 人</option>
+              <option value="3">3 人</option>
+              <option value="4">4 人</option>
+              <option value="5">5 人</option>
+              <option value="6">6 人</option>
+              <option value="7">7 人</option>
+              <option value="8">8 人</option>
+              <option value="9">9 人</option>
+              <option value="10">10 人</option>
+            </select>
+          </div>
+          <p class="settings__error" id="draw-error" hidden></p>
+          <div class="settings__checkboxes">
+            <label class="checkbox">
+              <input type="checkbox" id="auto-remove">
+              <span>中獎者自動移出名單</span>
+            </label>
+            <label class="checkbox">
+              <input type="checkbox" id="sound-enabled" checked>
+              <span>開啟音效</span>
+            </label>
+            <label class="checkbox">
+              <input type="checkbox" id="confetti-enabled" checked>
+              <span>顯示彩帶動畫</span>
+            </label>
+            <label class="checkbox">
+              <input type="checkbox" id="allow-duplicates">
+              <span>允許重複名字</span>
+            </label>
+          </div>
+        </section>
+      </div>
+
+      <section class="panel wheel-area" id="wheel-area">
+        <h2 class="panel__title panel__title--center">幸運轉盤</h2>
+        <div class="wheel-area__wrapper">
+          <div class="wheel-area__pointer" id="wheel-pointer" aria-hidden="true">
+            <svg class="wheel-area__pointer-svg" viewBox="0 0 48 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="pointerGradient" x1="24" y1="2" x2="24" y2="36" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#FFD93D"/>
+                  <stop offset="1" stop-color="#FF6B6B"/>
+                </linearGradient>
+              </defs>
+              <path
+                d="M10 2 L38 2 L24 36 Z"
+                fill="#ffffff"
+              />
+              <path
+                d="M12 4 L36 4 L24 33 Z"
+                fill="url(#pointerGradient)"
+                stroke="#ffffff"
+                stroke-width="2"
+                stroke-linejoin="round"
+              />
+              <circle cx="24" cy="28" r="2.5" fill="#ffffff" opacity="0.85"/>
+            </svg>
+          </div>
+          <div class="wheel-area__canvas-wrap">
+            <canvas id="wheel-canvas" width="400" height="400"></canvas>
+            <p class="wheel-area__placeholder" id="wheel-placeholder">目前參加者不足，請先加入更多名單。</p>
+          </div>
+        </div>
+        <p class="wheel-area__status" id="spin-status"></p>
+        <button type="button" class="btn btn--primary btn--spin" id="btn-spin" disabled>
+          🎉 開始抽獎
+        </button>
+      </section>
+    </section>
+
+    <section class="winners container" id="winners">
+      <h2 class="section-title">幸運得主名單</h2>
+      <div class="winners__list" id="winners-list">
+        <p class="winners__empty" id="winners-empty">尚無中獎紀錄，轉動轉盤試試手氣吧！</p>
+      </div>
+      <div class="winners__actions">
+        <button type="button" class="btn btn--outline" id="btn-clear-winners">清除中獎紀錄</button>
+        <button type="button" class="btn btn--outline" id="btn-export-winners">匯出中獎名單</button>
+      </div>
+    </section>
+
+    <section class="instructions container" id="instructions">
+      <h2 class="section-title">怎麼使用？</h2>
+      <div class="instructions__grid">
+        <article class="instruction-card">
+          <span class="instruction-card__step">Step 1</span>
+          <h3 class="instruction-card__title">貼上名單</h3>
+          <p class="instruction-card__desc">將參加者姓名貼到名單欄位，每行一個名字。</p>
+        </article>
+        <article class="instruction-card">
+          <span class="instruction-card__step">Step 2</span>
+          <h3 class="instruction-card__title">設定人數</h3>
+          <p class="instruction-card__desc">選擇這次要抽出幾位幸運得主。</p>
+        </article>
+        <article class="instruction-card">
+          <span class="instruction-card__step">Step 3</span>
+          <h3 class="instruction-card__title">開始轉盤</h3>
+          <p class="instruction-card__desc">按下開始抽獎，讓幸運轉盤替你選出得獎者。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="fairness container" id="fairness">
+      <h2 class="section-title">抽獎公平性說明</h2>
+      <article class="fairness__card">
+        <p class="fairness__text">
+          本網站的中獎結果並非由轉盤動畫決定，而是在您按下「開始抽獎」時，便先完成隨機演算。系統使用 Web Crypto API 的 <code>crypto.getRandomValues</code> 產生密碼學等級亂數，並以拒絕取樣（rejection sampling）均勻抽取索引，降低取模偏差，使每一位參加者在每一輪被抽中的機率相同。若設定中獎者移出名單，則採不放回抽樣；同一輪抽出多人時，亦避免重複中獎。轉盤旋轉僅供視覺呈現，不會改變最終結果。
+        </p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>🎡 幸運轉盤 Lucky Spin</p>
+      <p class="footer__tagline">轉一下，幸運就到你家！</p>
+    </div>
+  </footer>
+
+  <div class="modal" id="result-modal" hidden>
+    <div class="modal__backdrop" id="modal-backdrop"></div>
+    <div class="modal__content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal__flash" aria-hidden="true"></div>
+      <h2 class="modal__title" id="modal-title">🎉 恭喜中獎！</h2>
+      <div class="modal__body" id="modal-body"></div>
+      <div class="modal__actions">
+        <button type="button" class="btn btn--primary" id="btn-spin-again">再抽一次</button>
+        <button type="button" class="btn btn--secondary" id="btn-view-winners">查看中獎名單</button>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+
+  <script src="js/utils.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/nameList.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/wheel.js"></script>
+  <script src="js/winners.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/lottery.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
