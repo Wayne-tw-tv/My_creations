@@ -296,6 +296,12 @@ body {
   box-shadow: 0 4px 12px rgba(217, 119, 6, 0.35);
 }
 
+.portfolio-icon--clinic {
+  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  color: #ecfdf5;
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.35);
+}
+
 .portfolio-content {
   flex: 1;
   min-width: 0;
