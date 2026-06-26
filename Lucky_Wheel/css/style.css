@@ -386,7 +386,7 @@ body {
   transform: translateX(-50%);
   z-index: 10;
   width: 48px;
-  height: 40px;
+  height: calc(40px + 0.3cm);
   pointer-events: none;
 }
 
@@ -394,7 +394,7 @@ body {
   width: 100%;
   height: 100%;
   display: block;
-  filter: drop-shadow(0 3px 8px rgba(108, 92, 231, 0.35));
+  filter: drop-shadow(0 3px 8px rgba(255, 20, 147, 0.4));
 }
 
 .wheel-area__pointer.bounce {
@@ -553,10 +553,39 @@ body {
   margin-bottom: 0.5rem;
 }
 
+.winner-card__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-accent-purple);
+  margin: 0 0 0.5rem;
+}
+
 .winner-card__name {
   font-size: 1.15rem;
   font-weight: 800;
   margin: 0 0 0.25rem;
+}
+
+.winner-card__list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.5rem;
+  text-align: left;
+  display: inline-block;
+  counter-reset: winner-item;
+}
+
+.winner-card__list li {
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 0.2rem 0;
+  counter-increment: winner-item;
+}
+
+.winner-card__list li::before {
+  content: counter(winner-item) '. ';
+  color: var(--color-accent-red);
+  font-weight: 800;
 }
 
 .winner-card__meta {

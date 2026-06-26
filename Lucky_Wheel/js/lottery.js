@@ -87,9 +87,7 @@
       global.LuckySpin.nameList.setNames(workingPool);
     }
 
-    sessionWinners.forEach(function (name) {
-      global.LuckySpin.winners.addWinner(name);
-    });
+    global.LuckySpin.winners.addDrawRound(sessionWinners);
 
     setSpinningUI(false, '');
     isRunning = false;

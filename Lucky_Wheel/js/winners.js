@@ -4,8 +4,33 @@
   var winners = [];
   var els = {};
 
+  function normalizeRecord(record) {
+    if (record.names && Array.isArray(record.names)) {
+      return {
+        rank: record.rank,
+        names: record.names.slice(),
+        timestamp: record.timestamp
+      };
+    }
+    return {
+      rank: record.rank,
+      names: [record.name],
+      timestamp: record.timestamp
+    };
+  }
+
+  function normalizeWinners(list) {
+    return list.map(normalizeRecord);
+  }
+
   function getWinners() {
-    return winners.slice();
+    return winners.map(function (record) {
+      return {
+        rank: record.rank,
+        names: record.names.slice(),
+        timestamp: record.timestamp
+      };
+    });
   }
 
   function getNextRank() {
@@ -13,10 +38,12 @@
     return winners[winners.length - 1].rank + 1;
   }
 
-  function addWinner(name) {
+  function addDrawRound(names) {
+    if (!names || names.length === 0) return null;
+
     var record = {
       rank: getNextRank(),
-      name: name,
+      names: names.slice(),
       timestamp: new Date().toISOString()
     };
     winners.push(record);
@@ -25,12 +52,8 @@
     return record;
   }
 
-  function addWinners(names) {
-    var records = [];
-    names.forEach(function (name) {
-      records.push(addWinner(name));
-    });
-    return records;
+  function addWinner(name) {
+    return addDrawRound([name]);
   }
 
   function clearWinners() {
@@ -39,6 +62,10 @@
     winners = [];
     global.LuckySpin.storage.saveWinners(winners);
     render();
+  }
+
+  function formatRecordNames(record) {
+    return record.names.join('、');
   }
 
   function render() {
@@ -62,18 +89,34 @@
       icon.className = 'winner-card__icon';
       icon.textContent = '🏆';
 
-      var name = document.createElement('h3');
-      name.className = 'winner-card__name';
-      name.textContent = record.name;
+      var title = document.createElement('h3');
+      title.className = 'winner-card__title';
+      title.textContent = '第 ' + record.rank + ' 輪幸運得主';
+
+      card.appendChild(icon);
+      card.appendChild(title);
+
+      if (record.names.length === 1) {
+        var name = document.createElement('p');
+        name.className = 'winner-card__name';
+        name.textContent = record.names[0];
+        card.appendChild(name);
+      } else {
+        var list = document.createElement('ol');
+        list.className = 'winner-card__list';
+        record.names.forEach(function (name, index) {
+          var item = document.createElement('li');
+          item.textContent = name;
+          list.appendChild(item);
+        });
+        card.appendChild(list);
+      }
 
       var meta = document.createElement('p');
       meta.className = 'winner-card__meta';
-      meta.textContent = '第 ' + record.rank + ' 位幸運得主｜' +
-        global.LuckySpin.utils.formatTimestamp(new Date(record.timestamp));
-
-      card.appendChild(icon);
-      card.appendChild(name);
+      meta.textContent = global.LuckySpin.utils.formatTimestamp(new Date(record.timestamp));
       card.appendChild(meta);
+
       els.list.appendChild(card);
     });
   }
@@ -87,7 +130,7 @@
     var lines = ['幸運轉盤 - 中獎名單', '匯出時間：' + global.LuckySpin.utils.formatTimestamp(), ''];
     winners.forEach(function (record) {
       lines.push(
-        '第 ' + record.rank + ' 位｜' + record.name + '｜' +
+        '第 ' + record.rank + ' 輪｜' + formatRecordNames(record) + '｜' +
         global.LuckySpin.utils.formatTimestamp(new Date(record.timestamp))
       );
     });
@@ -109,7 +152,8 @@
     if (btnExport) btnExport.addEventListener('click', exportWinners);
 
     if (options && options.initialWinners) {
-      winners = options.initialWinners.slice();
+      winners = normalizeWinners(options.initialWinners);
+      global.LuckySpin.storage.saveWinners(winners);
     }
     render();
   }
@@ -124,8 +168,8 @@
   global.LuckySpin.winners = {
     init: init,
     getWinners: getWinners,
+    addDrawRound: addDrawRound,
     addWinner: addWinner,
-    addWinners: addWinners,
     clearWinners: clearWinners,
     exportWinners: exportWinners,
     reset: reset
