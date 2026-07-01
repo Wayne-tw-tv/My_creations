@@ -326,6 +326,12 @@ body {
   box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
 }
 
+.portfolio-icon--weather {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+  color: #ecfeff;
+  box-shadow: 0 4px 12px rgba(8, 145, 178, 0.35);
+}
+
 .portfolio-content {
   flex: 1;
   min-width: 0;

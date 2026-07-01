@@ -7,7 +7,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="icon" href="favicon.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="style.css?v=3">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -160,6 +160,20 @@
                 <p class="portfolio-desc">家庭電子佈告欄，主要展示面向家裡本機的環境，沒有打算對外網路，為了力求簡單，大家留言選擇一個身分無密碼登入，就可以做到溝通的地步。<br>支援年度封存、歷史查詢、行事曆模式、黑板模式...等。</p>
                 <p class="portfolio-desc">此網站較為特殊，由於功能的關係，無法放到Github，也無法放到支援Nodejs的Vercel。<br>最後找到Railway讓我可用Node.js + Express + Socket.io + JSON 檔案儲存的架構，實現無資料庫，並使用Socket.io即時同步，和存放資料的JSON。</p>
               </div>
+              <span class="portfolio-cta">前往網站 →</span>
+            </div>
+          </a>
+        </li>
+        <li class="portfolio-item">
+          <a href="https://weather-report-two-xi.vercel.app" class="portfolio-link" target="_blank" rel="noopener noreferrer">
+            <div class="portfolio-icon portfolio-icon--weather" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+              </svg>
+            </div>
+            <div class="portfolio-content">
+              <h3 class="portfolio-name">天氣報報</h3>
+              <p class="portfolio-desc">點選就能取得台灣城市的天氣資訊，此 WebAPP 應用，主要是開始穿接第三方 API，透過 OpenWeather API 取的天氣的資訊，學習了解第三方 API 使用的流程。並且將 API Key 藏於後端，避免被曝露取得使用。</p>
               <span class="portfolio-cta">前往網站 →</span>
             </div>
           </a>
