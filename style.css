@@ -332,6 +332,12 @@ body {
   box-shadow: 0 4px 12px rgba(8, 145, 178, 0.35);
 }
 
+.portfolio-icon--skilltree {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: #f0fdf4;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.35);
+}
+
 .portfolio-content {
   flex: 1;
   min-width: 0;
