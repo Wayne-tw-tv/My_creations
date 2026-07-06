@@ -1,0 +1,24 @@
+:root {
+  --bg-deep: #0a0e27;
+  --bg-panel: #141b3d;
+  --bg-panel-light: #1e2754;
+  --border-gold: #d4a843;
+  --border-gold-dim: #8b6914;
+  --text-primary: #f0e6d3;
+  --text-secondary: #a8b4d0;
+  --text-muted: #6b7899;
+  --accent-blue: #4a9eff;
+  --accent-purple: #a855f7;
+  --accent-green: #34d399;
+  --accent-red: #f87171;
+  --accent-orange: #fb923c;
+  --accent-cyan: #22d3ee;
+  --shadow-glow: 0 0 20px rgba(212, 168, 67, 0.3);
+  --font-title: 'ZCOOL KuaiLe', 'Press Start 2P', cursive;
+  --font-body: 'Noto Sans TC', sans-serif;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --hud-height: 56px;
+  --transition: 0.25s ease;
+}

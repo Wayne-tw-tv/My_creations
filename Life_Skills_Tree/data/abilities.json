@@ -1,0 +1,24 @@
+{
+  "abilities": [
+    { "id": "logic", "name": "邏輯推理", "icon": "🧠", "color": "#4a9eff" },
+    { "id": "analysis", "name": "分析能力", "icon": "📊", "color": "#a855f7" },
+    { "id": "communication", "name": "溝通表達", "icon": "💬", "color": "#34d399" },
+    { "id": "creativity", "name": "創造力", "icon": "✨", "color": "#fb923c" },
+    { "id": "observation", "name": "觀察力", "icon": "👁️", "color": "#22d3ee" },
+    { "id": "teamwork", "name": "團隊合作", "icon": "🤝", "color": "#f472b6" },
+    { "id": "tech_literacy", "name": "科技素養", "icon": "💻", "color": "#60a5fa" },
+    { "id": "language", "name": "語言能力", "icon": "🗣️", "color": "#fbbf24" },
+    { "id": "spatial", "name": "空間感知", "icon": "📐", "color": "#c084fc" },
+    { "id": "research", "name": "研究能力", "icon": "🔍", "color": "#2dd4bf" },
+    { "id": "leadership", "name": "領導力", "icon": "👑", "color": "#f87171" },
+    { "id": "empathy", "name": "同理心", "icon": "❤️", "color": "#fb7185" },
+    { "id": "discipline", "name": "自律", "icon": "⏰", "color": "#94a3b8" },
+    { "id": "problem_solving", "name": "問題解決", "icon": "🎯", "color": "#38bdf8" },
+    { "id": "cultural", "name": "文化素養", "icon": "🏛️", "color": "#d4a843" },
+    { "id": "physical", "name": "體能", "icon": "💪", "color": "#4ade80" },
+    { "id": "business_sense", "name": "商業頭腦", "icon": "💼", "color": "#fcd34d" },
+    { "id": "legal_thinking", "name": "法律思維", "icon": "⚖️", "color": "#a78bfa" },
+    { "id": "artistic", "name": "藝術感知", "icon": "🎭", "color": "#f97316" },
+    { "id": "international", "name": "國際視野", "icon": "🌏", "color": "#06b6d4" }
+  ]
+}

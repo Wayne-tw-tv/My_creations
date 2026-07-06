@@ -1,0 +1,38 @@
+{
+  "stages": [
+    {
+      "id": "elementary",
+      "name": "國小世界",
+      "chapter": 1,
+      "icon": "🏫",
+      "description": "新手村！在這裡建立你的第一棵技能樹根基。",
+      "multiplier": 0.8
+    },
+    {
+      "id": "middle",
+      "name": "國中世界",
+      "chapter": 2,
+      "icon": "📚",
+      "description": "技能開始分支，發現你的天賦方向。",
+      "multiplier": 1.0
+    },
+    {
+      "id": "high",
+      "name": "高中世界",
+      "chapter": 3,
+      "icon": "🎓",
+      "description": "選擇你的流派，專精你的技能路線。",
+      "multiplier": 1.2,
+      "hasTrack": true
+    },
+    {
+      "id": "university",
+      "name": "大學世界",
+      "chapter": 4,
+      "icon": "🏛️",
+      "description": "點亮職業技能，通往夢想工作！",
+      "multiplier": 1.5,
+      "hasTrack": true
+    }
+  ]
+}

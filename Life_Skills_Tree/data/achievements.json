@@ -1,0 +1,76 @@
+{
+  "achievements": [
+    {
+      "id": "math_master",
+      "name": "數學達人",
+      "icon": "🔢",
+      "description": "任一階段數學分配 ≥ 7 點"
+    },
+    {
+      "id": "english_rising",
+      "name": "國際小尖兵",
+      "icon": "🌏",
+      "description": "英文連續兩階段進步"
+    },
+    {
+      "id": "science_full",
+      "name": "小小科學家",
+      "icon": "🔬",
+      "description": "自然/生物相關科目滿點 10"
+    },
+    {
+      "id": "balanced",
+      "name": "全能學霸",
+      "icon": "⭐",
+      "description": "10 科各至少分配 1 點"
+    },
+    {
+      "id": "tech_path",
+      "name": "科技種子",
+      "icon": "💻",
+      "description": "資訊+數學合計 ≥ 12 點（跨階段）"
+    },
+    {
+      "id": "artist_soul",
+      "name": "藝術之魂",
+      "icon": "🎨",
+      "description": "美術+音樂/藝術合計 ≥ 12 點"
+    },
+    {
+      "id": "career_locked",
+      "name": "夢想接近",
+      "icon": "🎯",
+      "description": "任一職業匹配度 ≥ 90%"
+    },
+    {
+      "id": "explorer",
+      "name": "未來探索者",
+      "icon": "🧭",
+      "description": "使用反向探索 5 次"
+    },
+    {
+      "id": "first_step",
+      "name": "踏出第一步",
+      "icon": "👣",
+      "description": "完成第一個階段分配"
+    },
+    {
+      "id": "graduate",
+      "name": "大學畢業",
+      "icon": "🎓",
+      "description": "完成全部四個階段"
+    },
+    {
+      "id": "high_match",
+      "name": "高度匹配",
+      "icon": "✨",
+      "description": "三個職業匹配度 ≥ 85%"
+    },
+    {
+      "id": "tree_master",
+      "name": "技能樹大師",
+      "icon": "🌳",
+      "description": "解鎖 15 個以上技能樹節點"
+    }
+  ]
+}

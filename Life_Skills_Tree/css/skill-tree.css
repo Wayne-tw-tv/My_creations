@@ -1,0 +1,91 @@
+.skill-tree-svg {
+  display: block;
+  min-width: 800px;
+  height: 480px;
+}
+
+.skill-edge {
+  fill: none;
+  stroke: var(--border-gold-dim);
+  stroke-width: 2;
+  opacity: 0.5;
+  transition: all var(--transition);
+}
+
+.skill-edge.active {
+  stroke: var(--border-gold);
+  opacity: 1;
+  stroke-width: 2.5;
+}
+
+.skill-node-group {
+  cursor: pointer;
+}
+
+.skill-node-circle {
+  fill: var(--bg-panel);
+  stroke: var(--border-gold-dim);
+  stroke-width: 2;
+  transition: all var(--transition);
+}
+
+.skill-node-group:hover .skill-node-circle {
+  stroke: var(--border-gold);
+  filter: drop-shadow(0 0 6px rgba(212, 168, 67, 0.5));
+}
+
+.skill-node-group.locked .skill-node-circle {
+  fill: #0d1025;
+  stroke: #333;
+  opacity: 0.5;
+}
+
+.skill-node-group.available .skill-node-circle {
+  stroke: var(--accent-blue);
+  stroke-dasharray: 4 2;
+}
+
+.skill-node-group.unlocked .skill-node-circle {
+  fill: var(--bg-panel-light);
+  stroke: var(--border-gold);
+}
+
+.skill-node-group.mastered .skill-node-circle {
+  fill: rgba(212, 168, 67, 0.25);
+  stroke: var(--border-gold);
+  filter: drop-shadow(0 0 10px rgba(212, 168, 67, 0.6));
+}
+
+.skill-node-group.selected .skill-node-circle {
+  stroke: var(--accent-cyan);
+  stroke-width: 3;
+}
+
+.skill-node-icon {
+  font-size: 18px;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+  user-select: none;
+}
+
+.skill-node-label {
+  fill: var(--text-secondary);
+  font-size: 11px;
+  font-family: var(--font-body);
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+.skill-node-group.unlocked .skill-node-label,
+.skill-node-group.mastered .skill-node-label {
+  fill: var(--text-primary);
+}
+
+.layer-label {
+  fill: var(--text-muted);
+  font-size: 12px;
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}

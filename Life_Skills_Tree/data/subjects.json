@@ -1,0 +1,110 @@
+{
+  "elementary": [
+    { "id": "chinese", "name": "語文", "icon": "📖" },
+    { "id": "math", "name": "數學", "icon": "🔢" },
+    { "id": "science", "name": "自然", "icon": "🔬" },
+    { "id": "social", "name": "社會", "icon": "🌍" },
+    { "id": "english", "name": "英文", "icon": "🔤" },
+    { "id": "music", "name": "音樂", "icon": "🎵" },
+    { "id": "art", "name": "美術", "icon": "🎨" },
+    { "id": "health", "name": "健康", "icon": "💪" },
+    { "id": "pe", "name": "體育", "icon": "⚽" },
+    { "id": "info", "name": "資訊", "icon": "💻" }
+  ],
+  "middle": [
+    { "id": "chinese", "name": "國文", "icon": "📖" },
+    { "id": "english", "name": "英文", "icon": "🔤" },
+    { "id": "math", "name": "數學", "icon": "🔢" },
+    { "id": "science", "name": "自然", "icon": "🔬" },
+    { "id": "social", "name": "社會", "icon": "🌍" },
+    { "id": "history", "name": "歷史", "icon": "📜" },
+    { "id": "geography", "name": "地理", "icon": "🗺️" },
+    { "id": "civics", "name": "公民", "icon": "⚖️" },
+    { "id": "art", "name": "藝術", "icon": "🎭" },
+    { "id": "info", "name": "資訊", "icon": "💻" }
+  ],
+  "high_science": [
+    { "id": "physics", "name": "物理", "icon": "⚛️" },
+    { "id": "chemistry", "name": "化學", "icon": "🧪" },
+    { "id": "biology", "name": "生物", "icon": "🧬" },
+    { "id": "math", "name": "數學", "icon": "🔢" },
+    { "id": "english", "name": "英文", "icon": "🔤" },
+    { "id": "chinese", "name": "國文", "icon": "📖" },
+    { "id": "pe", "name": "體育", "icon": "⚽" },
+    { "id": "art", "name": "美術", "icon": "🎨" },
+    { "id": "info", "name": "資訊", "icon": "💻" },
+    { "id": "earth_science", "name": "地科", "icon": "🌋" }
+  ],
+  "high_social": [
+    { "id": "history", "name": "歷史", "icon": "📜" },
+    { "id": "geography", "name": "地理", "icon": "🗺️" },
+    { "id": "civics", "name": "公民", "icon": "⚖️" },
+    { "id": "chinese", "name": "國文", "icon": "📖" },
+    { "id": "english", "name": "英文", "icon": "🔤" },
+    { "id": "math", "name": "數學", "icon": "🔢" },
+    { "id": "pe", "name": "體育", "icon": "⚽" },
+    { "id": "art", "name": "美術", "icon": "🎨" },
+    { "id": "economics", "name": "經濟", "icon": "💰" },
+    { "id": "social_studies", "name": "社會", "icon": "🌍" }
+  ],
+  "high_vocational": [
+    { "id": "info", "name": "資訊", "icon": "💻" },
+    { "id": "electronics", "name": "電子", "icon": "🔌" },
+    { "id": "mechanical", "name": "機械", "icon": "⚙️" },
+    { "id": "business", "name": "商管", "icon": "📊" },
+    { "id": "design", "name": "設計", "icon": "✏️" },
+    { "id": "math", "name": "數學", "icon": "🔢" },
+    { "id": "english", "name": "英文", "icon": "🔤" },
+    { "id": "chinese", "name": "國文", "icon": "📖" },
+    { "id": "pe", "name": "體育", "icon": "⚽" },
+    { "id": "art", "name": "美術", "icon": "🎨" }
+  ],
+  "university_tech": [
+    { "id": "python", "name": "Python", "icon": "🐍" },
+    { "id": "linux", "name": "Linux", "icon": "🐧" },
+    { "id": "database", "name": "資料庫", "icon": "🗄️" },
+    { "id": "ai", "name": "AI", "icon": "🤖" },
+    { "id": "network", "name": "網路", "icon": "🌐" },
+    { "id": "cloud", "name": "Cloud", "icon": "☁️" },
+    { "id": "docker", "name": "Docker", "icon": "📦" },
+    { "id": "algorithm", "name": "演算法", "icon": "🧩" },
+    { "id": "project_mgmt", "name": "專案管理", "icon": "📋" },
+    { "id": "tech_english", "name": "英文文獻", "icon": "📄" }
+  ],
+  "university_medical": [
+    { "id": "anatomy", "name": "解剖學", "icon": "🫀" },
+    { "id": "physiology", "name": "生理學", "icon": "🧠" },
+    { "id": "pharmacology", "name": "藥理學", "icon": "💊" },
+    { "id": "pathology", "name": "病理學", "icon": "🔬" },
+    { "id": "clinical", "name": "臨床實習", "icon": "🏥" },
+    { "id": "biology", "name": "生物", "icon": "🧬" },
+    { "id": "chemistry", "name": "化學", "icon": "🧪" },
+    { "id": "med_english", "name": "醫學英文", "icon": "📄" },
+    { "id": "ethics", "name": "醫學倫理", "icon": "⚖️" },
+    { "id": "research", "name": "研究法", "icon": "📊" }
+  ],
+  "university_business": [
+    { "id": "accounting", "name": "會計", "icon": "📒" },
+    { "id": "finance", "name": "財務", "icon": "💹" },
+    { "id": "marketing", "name": "行銷", "icon": "📣" },
+    { "id": "management", "name": "管理", "icon": "👔" },
+    { "id": "economics", "name": "經濟", "icon": "💰" },
+    { "id": "statistics", "name": "統計", "icon": "📈" },
+    { "id": "law", "name": "商法", "icon": "⚖️" },
+    { "id": "biz_english", "name": "商用英文", "icon": "🔤" },
+    { "id": "entrepreneurship", "name": "創業", "icon": "🚀" },
+    { "id": "data_analysis", "name": "資料分析", "icon": "📊" }
+  ],
+  "university_arts": [
+    { "id": "design_thinking", "name": "設計思考", "icon": "💡" },
+    { "id": "visual_design", "name": "視覺設計", "icon": "🎨" },
+    { "id": "ux", "name": "UX", "icon": "🖱️" },
+    { "id": "illustration", "name": "插畫", "icon": "✏️" },
+    { "id": "photography", "name": "攝影", "icon": "📷" },
+    { "id": "animation", "name": "動畫", "icon": "🎬" },
+    { "id": "music_theory", "name": "樂理", "icon": "🎼" },
+    { "id": "art_history", "name": "藝術史", "icon": "🏛️" },
+    { "id": "portfolio", "name": "作品集", "icon": "📁" },
+    { "id": "creative_writing", "name": "創意寫作", "icon": "✍️" }
+  ]
+}

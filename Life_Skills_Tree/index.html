@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>人生技能樹 RPG</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/skill-tree.css" />
+</head>
+<body>
+  <header id="hud">
+    <div class="hud-left">
+      <button class="hud-title hud-title-btn hidden" id="btn-hud-home" data-nav="map" type="button" title="返回世界地圖">🌳 人生技能樹</button>
+      <span class="hud-title" id="hud-title-static">🌳 人生技能樹</span>
+      <span class="hud-stat">👤 <strong id="hud-name">冒險者</strong></span>
+      <span class="hud-stat"><strong id="hud-level">Lv.1</strong></span>
+      <button class="btn btn-sm hud-back hidden" id="btn-back-map" data-nav="map" type="button">← 返回地圖</button>
+    </div>
+    <div class="hud-right">
+      <span class="hud-stat">📍 <strong id="hud-stage">國小世界</strong></span>
+      <span class="hud-stat">🏆 <strong id="hud-achievements">0/12</strong></span>
+      <button class="btn btn-sm" id="btn-reset" title="重置存檔">重置</button>
+    </div>
+  </header>
+
+  <main id="app">
+    <!-- Welcome -->
+    <section id="view-welcome" class="view active">
+      <div class="welcome-hero">
+        <div class="logo">🌳</div>
+        <h1>人生技能樹 RPG</h1>
+        <p style="color: var(--text-secondary); max-width: 500px; margin: 1rem auto">
+          從國小到大學，用技能點打造你的未來職業！<br />
+          每一門課都是技能，每一個選擇都通往不同的未来。
+        </p>
+      </div>
+      <div class="welcome-form card" style="max-width: 420px; margin: 0 auto">
+        <label for="player-name">冒險者名稱</label>
+        <input class="input-text" id="player-name" type="text" placeholder="輸入你的名字..." maxlength="12" />
+        <div id="tutorial-box" class="hidden">
+          <div class="tutorial-step">
+            <strong>🎮 怎麼玩？</strong><br />
+            每個階段有 <strong>10 點技能點</strong>，分配給 10 個科目。<br />
+            科目會轉換成「能力」，能力連結到「職業」。
+          </div>
+          <div class="tutorial-step">
+            <strong>💡 重點</strong><br />
+            不是每科都考 100 分 — 而是思考你要把有限點數投資在哪！
+          </div>
+        </div>
+        <button class="btn btn-primary" id="btn-start">開始冒險 →</button>
+      </div>
+    </section>
+
+    <!-- World Map -->
+    <section id="view-map" class="view">
+      <div class="view-header">
+        <h2>🗺️ 世界地圖</h2>
+        <p>選擇章節，分配你的技能點</p>
+      </div>
+      <div class="world-map" id="world-map"></div>
+      <div class="nav-actions">
+        <button class="btn" data-nav="abilities">📊 能力總覽</button>
+        <button class="btn" data-nav="tree">🌳 技能樹</button>
+        <button class="btn" data-nav="careers">💼 職業推薦</button>
+        <button class="btn" data-nav="catalog">📋 職業圖鑑</button>
+        <button class="btn" data-nav="reverse">🔍 反向探索</button>
+        <button class="btn" data-nav="achievements">🏆 成就</button>
+      </div>
+    </section>
+
+    <!-- Allocation -->
+    <section id="view-allocation" class="view">
+
+      <div class="view-header">
+        <h2 id="allocation-title">分配技能點</h2>
+        <p id="allocation-desc">將 10 點技能點分配給各科目</p>
+      </div>
+      <div id="track-selector-container"></div>
+      <div class="allocation-panel card" id="allocation-container"></div>
+      <div class="nav-actions footer-nav">
+        <button class="btn" data-nav="map">← 返回地圖</button>
+      </div>
+    </section>
+
+    <!-- Ability Result -->
+    <section id="view-abilities" class="view">
+
+      <div class="view-header">
+        <h2>📊 能力總覽</h2>
+        <p id="ability-preview-note"></p>
+      </div>
+      <div class="radar-container">
+        <canvas id="radar-canvas" class="radar-canvas"></canvas>
+      </div>
+      <div id="ability-list" class="card" style="max-width: 600px; margin: 0 auto"></div>
+      <div class="nav-actions footer-nav">
+        <button class="btn" data-nav="map">← 返回地圖</button>
+        <button class="btn btn-primary" data-nav="careers">查看職業推薦 →</button>
+      </div>
+    </section>
+
+    <!-- Skill Tree -->
+    <section id="view-tree" class="view">
+
+      <div class="view-header">
+        <h2>🌳 技能樹</h2>
+        <p>點擊節點查看詳情，看看你的成長路線</p>
+      </div>
+      <div class="skill-tree-layout">
+        <div class="skill-tree-wrapper" id="skill-tree-container"></div>
+        <div class="node-detail-panel empty card" id="node-detail">
+          <p>點擊技能樹節點<br />查看詳細資訊</p>
+        </div>
+      </div>
+      <div class="nav-actions footer-nav">
+        <button class="btn" data-nav="map">← 返回地圖</button>
+      </div>
+    </section>
+
+    <!-- Career Match -->
+    <section id="view-careers" class="view">
+
+      <div class="view-header">
+        <h2>💼 職業推薦</h2>
+        <p id="career-preview-note">根據你的能力，這些職業最適合你</p>
+      </div>
+      <div id="career-results" class="career-grid"></div>
+      <div id="entry-careers-section"></div>
+      <div class="nav-actions footer-nav">
+        <button class="btn" data-nav="map">← 返回地圖</button>
+        <button class="btn btn-primary" data-nav="reverse">反向探索 →</button>
+      </div>
+    </section>
+
+    <!-- Career Catalog -->
+    <section id="view-catalog" class="view">
+
+      <div class="view-header">
+        <h2>📋 職業圖鑑</h2>
+        <p>全部職業與必備能力一覽（能力值 1～5 級）</p>
+      </div>
+      <div id="catalog-container"></div>
+      <div class="nav-actions footer-nav">
+        <button class="btn" data-nav="map">← 返回地圖</button>
+        <button class="btn btn-primary" data-nav="reverse">選定職業，開始反向探索 →</button>
+      </div>
+    </section>
+
+    <!-- Reverse Explore -->
+    <section id="view-reverse" class="view">
+
+      <div class="view-header">
+        <h2>🔍 反向探索</h2>
+        <p>先選夢想職業，看看需要什麼技能</p>
+      </div>
+      <div id="reverse-container"></div>
+      <div class="nav-actions footer-nav">
+        <button class="btn" data-nav="map">← 返回地圖</button>
+      </div>
+    </section>
+
+    <!-- Achievements -->
+    <section id="view-achievements" class="view">
+
+      <div class="view-header">
+        <h2>🏆 成就</h2>
+        <p>記錄你的成長里程碑</p>
+      </div>
+      <div id="achievements-container"></div>
+      <div class="nav-actions footer-nav">
+        <button class="btn" data-nav="map">← 返回地圖</button>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
