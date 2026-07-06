@@ -5,6 +5,7 @@ import {
   resetState,
   completeStage,
   isStageUnlocked,
+  getNextChapter,
   initAllocation,
 } from './state.js';
 import {
@@ -265,6 +266,26 @@ function renderAbilitiesView() {
   `;
 
   runAchievementCheck();
+
+  const nav = document.getElementById('ability-nav-actions');
+  const nextChapter = getNextChapter(state, data.stages);
+  nav.innerHTML = `
+    <button class="btn" data-nav="map">← 返回地圖</button>
+    ${
+      nextChapter
+        ? `<button class="btn btn-primary" id="btn-next-chapter">${nextChapter.icon} 前往${nextChapter.name} →</button>`
+        : state.completedStages.length >= 4
+          ? '<span class="badge badge-green">🎓 四階段全部完成！</span>'
+          : ''
+    }
+    <button class="btn${nextChapter ? '' : ' btn-primary'}" data-nav="careers">查看職業推薦 →</button>
+  `;
+
+  nav.querySelector('[data-nav="map"]')?.addEventListener('click', () => navigate('map'));
+  nav.querySelector('[data-nav="careers"]')?.addEventListener('click', () => navigate('careers'));
+  nav.querySelector('#btn-next-chapter')?.addEventListener('click', () => {
+    navigate('allocation', { stage: nextChapter.id });
+  });
 }
 
 function renderTreeView() {

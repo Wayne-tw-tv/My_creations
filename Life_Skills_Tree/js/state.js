@@ -59,6 +59,14 @@ export function isStageUnlocked(state, stageId, stages) {
   return state.completedStages.includes(prev.id);
 }
 
+export function getNextChapter(state, stages) {
+  const nextId = state.currentStage;
+  if (!nextId || state.completedStages.includes(nextId)) return null;
+  const stage = stages.find((s) => s.id === nextId);
+  if (!stage || !isStageUnlocked(state, nextId, stages)) return null;
+  return stage;
+}
+
 export function completeStage(state, stageId) {
   if (!state.completedStages.includes(stageId)) {
     state.completedStages.push(stageId);
