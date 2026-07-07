@@ -338,6 +338,12 @@ body {
   box-shadow: 0 4px 12px rgba(22, 163, 74, 0.35);
 }
 
+.portfolio-icon--coffeeratio {
+  background: linear-gradient(135deg, #92400e 0%, #78350f 100%);
+  color: #fef3c7;
+  box-shadow: 0 4px 12px rgba(120, 53, 15, 0.35);
+}
+
 .portfolio-content {
   flex: 1;
   min-width: 0;
