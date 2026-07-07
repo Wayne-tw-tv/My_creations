@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coffee Ratio Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+  <main id="app">
+    <!-- Home -->
+    <section id="view-home" class="view active">
+      <div class="home-hero">
+        <div class="home-logo">☕</div>
+        <h1>Coffee Ratio Pro</h1>
+        <p class="tagline">專業咖啡沖煮助手，幫助每一次沖煮都保持最佳風味</p>
+      </div>
+
+      <div class="card">
+        <p class="home-section-title">今天想怎麼沖？</p>
+        <div class="category-grid" id="category-grid">
+          <button class="category-chip selected" data-category="手沖" type="button">
+            <span class="chip-icon">☕</span>手沖
+          </button>
+          <button class="category-chip" data-category="義式" type="button">
+            <span class="chip-icon">☕</span>義式
+          </button>
+          <button class="category-chip" data-category="法壓" type="button">
+            <span class="chip-icon">☕</span>法壓
+          </button>
+          <button class="category-chip" data-category="冷萃" type="button">
+            <span class="chip-icon">🧊</span>冷萃
+          </button>
+          <button class="category-chip" data-category="摩卡壺" type="button">
+            <span class="chip-icon">☕</span>摩卡壺
+          </button>
+        </div>
+        <button class="btn btn-primary btn-block" id="btn-start-calc" type="button">開始計算 →</button>
+      </div>
+
+      <div class="last-brew-card" id="last-brew-card">
+        <p class="last-brew-label">最近一次</p>
+        <div class="last-brew-content" id="last-brew-content">
+          <span class="empty-state" style="padding:0">尚無紀錄，開始你的第一杯吧</span>
+        </div>
+      </div>
+
+      <p class="home-disclaimer">
+        以上咖啡比例僅供參考，每人喜好、偏好、標準，都有心中完美的黃金比例。
+      </p>
+    </section>
+
+    <!-- Calculator -->
+    <section id="view-calculator" class="view">
+      <div class="view-header">
+        <h2>水粉比例計算</h2>
+        <p>調整比例，找到最適合的風味</p>
+      </div>
+
+      <div class="method-select">
+        <select id="calc-method-select"></select>
+      </div>
+
+      <div class="tabs" id="calc-tabs">
+        <button class="tab active" data-mode="coffee" type="button">已知咖啡粉</button>
+        <button class="tab" data-mode="water" type="button">已知水量</button>
+      </div>
+
+      <div id="input-coffee" class="input-group">
+        <label for="input-coffee-g">咖啡粉</label>
+        <div class="input-with-unit">
+          <input class="input-number" id="input-coffee-g" type="number" min="1" max="999" step="0.1" value="18" />
+          <span class="input-unit">g</span>
+        </div>
+      </div>
+
+      <div id="input-water" class="input-group hidden">
+        <label for="input-water-ml">水量</label>
+        <div class="input-with-unit">
+          <input class="input-number" id="input-water-ml" type="number" min="1" max="9999" step="1" value="288" />
+          <span class="input-unit">ml</span>
+        </div>
+      </div>
+
+      <div class="result-grid">
+        <div class="result-item">
+          <p class="result-label">比例</p>
+          <p class="result-value" id="result-ratio">1:16.0</p>
+        </div>
+        <div class="result-item">
+          <p class="result-label" id="result-secondary-label">水量</p>
+          <p class="result-value" id="result-secondary">288 ml</p>
+        </div>
+      </div>
+
+      <div class="slider-group">
+        <div class="slider-header">
+          <span class="slider-label">水粉比例</span>
+          <span class="slider-value" id="ratio-slider-value">1:16</span>
+        </div>
+        <input id="ratio-slider" type="range" min="12" max="18" step="0.5" value="16" />
+        <div class="slider-ticks">
+          <span>1:12</span><span>1:14</span><span>1:16</span><span>1:18</span>
+        </div>
+      </div>
+
+      <div class="slider-group">
+        <div class="slider-header">
+          <span class="slider-label">☕ 強度</span>
+          <span class="slider-value" id="strength-label">一般</span>
+        </div>
+        <input id="strength-slider" type="range" min="0" max="100" step="1" value="50" />
+        <div class="strength-labels">
+          <span>淡</span><span>一般</span><span>濃</span>
+        </div>
+      </div>
+
+      <div class="ratio-visual">
+        <p class="ratio-visual-top" id="visual-coffee">18g</p>
+        <p class="ratio-visual-arrow">↓↓↓</p>
+        <div class="ratio-bar-container">
+          <div class="ratio-bar-coffee" id="ratio-bar-coffee" style="width: 6%"></div>
+          <div class="ratio-bar-water" id="ratio-bar-water"></div>
+        </div>
+        <p class="ratio-visual-bottom" id="visual-water">288ml</p>
+        <div class="ratio-bar-labels">
+          <span>Coffee</span>
+          <span>Water</span>
+        </div>
+      </div>
+
+      <div class="brew-params">
+        <div class="brew-param">
+          <p class="param-label">水溫</p>
+          <p class="param-value" id="param-temp">90–94°C</p>
+        </div>
+        <div class="brew-param">
+          <p class="param-label">研磨</p>
+          <p class="param-value" id="param-grind">中細</p>
+        </div>
+        <div class="brew-param">
+          <p class="param-label">時間</p>
+          <p class="param-value" id="param-time">2:30–3:30</p>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button class="btn" id="btn-save-favorite" type="button">⭐ 收藏配方</button>
+        <button class="btn btn-primary" id="btn-save-record" type="button">📝 儲存紀錄</button>
+      </div>
+    </section>
+
+    <!-- Brew Methods -->
+    <section id="view-methods" class="view">
+      <div id="methods-list-view">
+        <div class="view-header">
+          <h2>沖煮方式</h2>
+          <p>選擇你的沖煮器具，查看建議參數</p>
+        </div>
+        <div class="method-grid" id="method-grid"></div>
+      </div>
+
+      <div id="methods-detail-view" class="hidden">
+        <button class="back-btn" id="btn-method-back" type="button">← 返回列表</button>
+        <div id="method-detail-content"></div>
+      </div>
+    </section>
+
+    <!-- Favorites -->
+    <section id="view-favorites" class="view">
+      <div class="view-header">
+        <h2>⭐ 我的配方</h2>
+        <p>收藏常用配方，一鍵載入</p>
+      </div>
+      <div id="favorites-list"></div>
+    </section>
+
+    <!-- Records -->
+    <section id="view-records" class="view">
+      <div class="view-header">
+        <h2>📝 沖煮紀錄</h2>
+        <p>記錄每一次沖煮，打造專屬日記</p>
+      </div>
+      <div id="records-list"></div>
+    </section>
+  </main>
+
+  <nav id="bottom-nav">
+    <button class="nav-btn active" data-nav="home" type="button">
+      <span class="nav-icon">🏠</span>
+      <span>首頁</span>
+    </button>
+    <button class="nav-btn" data-nav="calculator" type="button">
+      <span class="nav-icon">🧮</span>
+      <span>計算</span>
+    </button>
+    <button class="nav-btn" data-nav="methods" type="button">
+      <span class="nav-icon">☕</span>
+      <span>方式</span>
+    </button>
+    <button class="nav-btn" data-nav="favorites" type="button">
+      <span class="nav-icon">⭐</span>
+      <span>收藏</span>
+    </button>
+    <button class="nav-btn" data-nav="records" type="button">
+      <span class="nav-icon">📝</span>
+      <span>紀錄</span>
+    </button>
+  </nav>
+
+  <!-- Favorite Modal -->
+  <div class="modal-overlay" id="modal-favorite">
+    <div class="modal">
+      <h3>收藏配方</h3>
+      <div class="input-group">
+        <label for="favorite-name">配方名稱</label>
+        <input class="input-text" id="favorite-name" type="text" placeholder="例如：Kenya AA" maxlength="40" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn" id="btn-cancel-favorite" type="button">取消</button>
+        <button class="btn btn-primary" id="btn-confirm-favorite" type="button">儲存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Record Modal -->
+  <div class="modal-overlay" id="modal-record">
+    <div class="modal">
+      <h3>儲存沖煮紀錄</h3>
+      <div class="input-group">
+        <label>評分 <span id="record-rating-hint" class="hidden" style="color:var(--danger);font-weight:400">請選擇評分</span></label>
+        <div class="star-rating" id="record-stars">
+          <button class="star" data-rating="1" type="button">★</button>
+          <button class="star" data-rating="2" type="button">★</button>
+          <button class="star" data-rating="3" type="button">★</button>
+          <button class="star" data-rating="4" type="button">★</button>
+          <button class="star" data-rating="5" type="button">★</button>
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="record-notes">心得</label>
+        <textarea id="record-notes" placeholder="今天甜感很好，酸值偏高，下次磨細一點…"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="btn" id="btn-cancel-record" type="button">取消</button>
+        <button class="btn btn-primary" id="btn-confirm-record" type="button">儲存</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
