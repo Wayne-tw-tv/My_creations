@@ -20,7 +20,17 @@
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 20px;
-  --nav-height: 64px;
+  --radius-pill: 999px;
+  --nav-height: 72px;
+  --nav-bg: var(--bg-card);
+  --nav-border: var(--border);
+  --nav-btn-bg: transparent;
+  --nav-btn-hover-bg: var(--bg-muted);
+  --nav-btn-active-bg: var(--latte-light);
+  --nav-btn-text: var(--text-secondary);
+  --nav-btn-hover-text: var(--coffee-dark);
+  --nav-btn-active-text: var(--coffee-dark);
   --header-height: 56px;
   --transition: 0.2s ease;
+  --transition-fast: 0.15s ease;
 }
