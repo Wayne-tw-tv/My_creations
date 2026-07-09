@@ -22,6 +22,8 @@ import {
   validateCoffeeG,
   validateWaterMl,
   validateRatio,
+  getMethodRatioBounds,
+  getRatioStep,
   getCurrentCalcSnapshot,
 } from './calculator.js';
 import {
@@ -94,8 +96,34 @@ function getCurrentMethod() {
   return getMethodById(currentMethodId) || getMethodById('v60');
 }
 
+function syncRatioSliderBounds(method, ratio) {
+  const { min, max } = getMethodRatioBounds(method);
+  const step = getRatioStep(min, max);
+  const clamped = validateRatio(ratio ?? els.ratioSlider.value, method);
+
+  els.ratioSlider.min = min;
+  els.ratioSlider.max = max;
+  els.ratioSlider.step = step;
+  els.ratioSlider.value = clamped;
+
+  const ticks = els.ratioSlider.parentElement?.querySelector('.slider-ticks');
+  if (ticks) {
+    const midLow = round(min + (max - min) / 3, 1);
+    const midHigh = round(min + ((max - min) * 2) / 3, 1);
+    ticks.innerHTML = `
+      <span>${formatRatio(min)}</span>
+      <span>${formatRatio(midLow)}</span>
+      <span>${formatRatio(midHigh)}</span>
+      <span>${formatRatio(max)}</span>
+    `;
+  }
+
+  return clamped;
+}
+
 function getCalcValues() {
-  const ratio = validateRatio(els.ratioSlider.value);
+  const method = getCurrentMethod();
+  const ratio = validateRatio(els.ratioSlider.value, method);
   if (calcMode === 'coffee') {
     const coffeeG = validateCoffeeG(els.inputCoffee.value);
     const { waterMl } = computeFromCoffee(coffeeG, ratio);
@@ -132,7 +160,7 @@ function updateCalculatorUI() {
   if (!isSyncingSliders) {
     isSyncingSliders = true;
     els.ratioSlider.value = ratio;
-    const strength = ratioToStrength(ratio);
+    const strength = ratioToStrength(ratio, method);
     els.strengthSlider.value = Math.round(strength);
     els.strengthLabel.textContent = getStrengthLabel(strength);
     isSyncingSliders = false;
@@ -143,7 +171,7 @@ function updateCalculatorUI() {
     coffeeG: round(coffeeG, 1),
     waterMl: Math.round(waterMl),
     ratio: round(ratio, 1),
-    strength: Math.round(ratioToStrength(ratio)),
+    strength: Math.round(ratioToStrength(ratio, method)),
     methodId: currentMethodId,
   });
 }
@@ -162,10 +190,11 @@ function loadCalculatorFromSnapshot(snapshot) {
   currentMethodId = snapshot.methodId || currentMethodId;
   populateMethodSelect(els.methodSelect, currentMethodId);
 
-  const ratio = validateRatio(snapshot.ratio);
+  const method = getCurrentMethod();
+  const ratio = validateRatio(snapshot.ratio, method);
   isSyncingSliders = true;
-  els.ratioSlider.value = ratio;
-  els.strengthSlider.value = Math.round(ratioToStrength(ratio));
+  syncRatioSliderBounds(method, ratio);
+  els.strengthSlider.value = Math.round(ratioToStrength(ratio, method));
   isSyncingSliders = false;
 
   els.inputCoffee.value = snapshot.coffeeG;
@@ -183,8 +212,8 @@ function applyMethod(method, navigate = true) {
   populateMethodSelect(els.methodSelect, currentMethodId);
 
   isSyncingSliders = true;
-  els.ratioSlider.value = method.ratioDefault;
-  els.strengthSlider.value = Math.round(ratioToStrength(method.ratioDefault));
+  syncRatioSliderBounds(method, method.ratioDefault);
+  els.strengthSlider.value = Math.round(ratioToStrength(method.ratioDefault, method));
   isSyncingSliders = false;
 
   updateCalculatorUI();
@@ -260,27 +289,30 @@ function bindCalculator() {
 
   els.ratioSlider.addEventListener('input', () => {
     if (isSyncingSliders) return;
+    const method = getCurrentMethod();
     isSyncingSliders = true;
-    const ratio = validateRatio(els.ratioSlider.value);
-    els.strengthSlider.value = Math.round(ratioToStrength(ratio));
-    els.strengthLabel.textContent = getStrengthLabel(ratioToStrength(ratio));
+    const ratio = validateRatio(els.ratioSlider.value, method);
+    const strength = ratioToStrength(ratio, method);
+    els.strengthSlider.value = Math.round(strength);
+    els.strengthLabel.textContent = getStrengthLabel(strength);
     isSyncingSliders = false;
     updateCalculatorUI();
   });
 
   els.strengthSlider.addEventListener('input', () => {
     if (isSyncingSliders) return;
+    const method = getCurrentMethod();
     const strength = parseInt(els.strengthSlider.value, 10);
     els.strengthLabel.textContent = getStrengthLabel(strength);
     isSyncingSliders = true;
-    els.ratioSlider.value = round(strengthToRatio(strength), 1);
+    els.ratioSlider.value = round(strengthToRatio(strength, method), 1);
     isSyncingSliders = false;
     updateCalculatorUI();
   });
 
   els.methodSelect.addEventListener('change', () => {
-    currentMethodId = els.methodSelect.value;
-    updateCalculatorUI();
+    const method = getMethodById(els.methodSelect.value);
+    if (method) applyMethod(method, false);
   });
 
   $('#btn-save-favorite').addEventListener('click', () => {
@@ -417,10 +449,12 @@ async function init() {
   els.inputCoffee.value = state.calculatorState.coffeeG;
   els.inputWater.value = state.calculatorState.waterMl;
 
+  const method = getCurrentMethod();
   isSyncingSliders = true;
-  els.ratioSlider.value = state.calculatorState.ratio;
-  els.strengthSlider.value = state.calculatorState.strength;
-  els.strengthLabel.textContent = getStrengthLabel(state.calculatorState.strength);
+  const ratio = syncRatioSliderBounds(method, state.calculatorState.ratio);
+  const strength = Math.round(ratioToStrength(ratio, method));
+  els.strengthSlider.value = strength;
+  els.strengthLabel.textContent = getStrengthLabel(strength);
   isSyncingSliders = false;
 
   setCalcMode(calcMode);

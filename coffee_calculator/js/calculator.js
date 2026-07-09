@@ -11,7 +11,7 @@ export function coffeeFromWater(waterMl, ratio) {
 }
 
 export function formatRatio(ratio) {
-  return `1:${ratio.toFixed(1)}`;
+  return `1:${Number(ratio).toFixed(1)}`;
 }
 
 export function formatCoffee(g) {
@@ -31,12 +31,30 @@ export function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
 }
 
-export function strengthToRatio(strength) {
-  return 18 - (strength / 100) * 4;
+export function getMethodRatioBounds(method) {
+  const min = method?.ratioMin ?? RATIO_MIN;
+  const max = method?.ratioMax ?? RATIO_MAX;
+  return { min, max };
 }
 
-export function ratioToStrength(ratio) {
-  return clamp(((18 - ratio) / 4) * 100, 0, 100);
+export function getRatioStep(min, max) {
+  const span = max - min;
+  if (span <= 2) return 0.1;
+  if (span <= 5) return 0.5;
+  return 0.5;
+}
+
+/** strength 0=淡(高比例) → 100=濃(低比例)，對應 method 的 ratio 範圍 */
+export function strengthToRatio(strength, method) {
+  const { min, max } = getMethodRatioBounds(method);
+  return max - (strength / 100) * (max - min);
+}
+
+export function ratioToStrength(ratio, method) {
+  const { min, max } = getMethodRatioBounds(method);
+  const span = max - min;
+  if (span <= 0) return 50;
+  return clamp(((max - ratio) / span) * 100, 0, 100);
 }
 
 export function getStrengthLabel(strength) {
@@ -75,10 +93,12 @@ export function validateWaterMl(value) {
   return Math.round(n);
 }
 
-export function validateRatio(value) {
+export function validateRatio(value, method) {
+  const { min, max } = getMethodRatioBounds(method);
+  const fallback = method?.ratioDefault ?? 16;
   const n = parseFloat(value);
-  if (Number.isNaN(n)) return 16;
-  return clamp(round(n, 1), RATIO_MIN, RATIO_MAX);
+  if (Number.isNaN(n)) return fallback;
+  return clamp(round(n, 1), min, max);
 }
 
 export function formatStars(rating) {
