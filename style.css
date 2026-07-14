@@ -353,6 +353,12 @@ body {
   box-shadow: 0 4px 12px rgba(120, 53, 15, 0.35);
 }
 
+.portfolio-icon--career {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: #f5f3ff;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+}
+
 .portfolio-content {
   flex: 1;
   min-width: 0;
@@ -391,6 +397,13 @@ body {
 
 .portfolio-desc-group .portfolio-desc + .portfolio-desc {
   margin-top: -0.35rem;
+}
+
+.portfolio-note {
+  color: #dc2626;
+  font-weight: 400;
+  margin-top: -0.35rem;
+  flex: 0;
 }
 
 .portfolio-cta {
