@@ -244,6 +244,26 @@ h3 { font-size: 1.125rem; }
   color: var(--accent-green);
 }
 
+.remaining-points.waste .count {
+  color: var(--accent-orange);
+}
+
+.waste-note {
+  font-size: 0.85rem;
+  color: var(--accent-orange);
+  margin-left: 0.35rem;
+}
+
+.allocation-hint {
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: var(--radius-sm);
+  background: rgba(251, 146, 60, 0.1);
+  border: 1px solid rgba(251, 146, 60, 0.3);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
 .two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;

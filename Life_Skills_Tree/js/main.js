@@ -7,6 +7,7 @@ import {
   isStageUnlocked,
   getNextChapter,
   initAllocation,
+  getTotalPoints,
 } from './state.js';
 import {
   renderAllocation,
@@ -14,6 +15,7 @@ import {
   ensureAllocation,
   HIGH_TRACKS,
   UNIVERSITY_TRACKS,
+  TOTAL_POINTS,
 } from './allocation.js';
 import { getAllAbilities, drawRadarChart, getTopAbilities } from './ability-engine.js';
 import {
@@ -168,6 +170,39 @@ function renderWorldMap() {
       navigate('allocation', { stage: el.dataset.stage });
     });
   });
+
+  renderGameSettings();
+}
+
+function renderGameSettings() {
+  const panel = document.getElementById('game-settings');
+  if (!panel) return;
+
+  if (!state.settings) state.settings = { strictAllocation: true };
+  const strict = state.settings.strictAllocation !== false;
+
+  panel.innerHTML = `
+    <div class="settings-row">
+      <div class="settings-info">
+        <strong>🎛️ 技能點規則</strong>
+        <p>${strict
+          ? '目前：<span class="badge badge-gold">嚴格模式</span> — 必須分配完 10 點才能進入下一章'
+          : '目前：<span class="badge badge-blue">自由模式</span> — 可浪費未使用的點數直接前進'}</p>
+        <p class="settings-desc">關閉嚴格模式時，每一章未分配的點數會<strong>永久消失</strong>，就像虛度光陰、不認真學習 — 最終能力不足以選擇夢想職業。</p>
+      </div>
+      <label class="toggle-switch" title="切換是否必須分配完 10 點">
+        <input type="checkbox" id="toggle-strict-allocation" ${strict ? 'checked' : ''} />
+        <span class="toggle-slider"></span>
+        <span class="toggle-label">必須分配完 10 點</span>
+      </label>
+    </div>
+  `;
+
+  panel.querySelector('#toggle-strict-allocation')?.addEventListener('change', (e) => {
+    state.settings.strictAllocation = e.target.checked;
+    saveState(state);
+    renderGameSettings();
+  });
 }
 
 function getSubjectKey(stageId) {
@@ -204,18 +239,25 @@ function renderAllocationView(stageId) {
       saveState(state);
 
       if (submitted) {
+        const used = getTotalPoints(alloc, subjects);
+        const wasted = TOTAL_POINTS - used;
+        const strict = state.settings?.strictAllocation !== false;
+
         completeStage(state, stageId);
         runAchievementCheck();
-        showToast(
-          '章節完成！',
-          `${stage.name} 技能點已分配完毕，看看你的能力吧！`,
-          stage.icon,
-          () => navigate('abilities')
-        );
+
+        let title = '章節完成！';
+        let message = `${stage.name} 技能點已分配，看看你的能力吧！`;
+        if (!strict && wasted > 0) {
+          title = `章節完成（浪費了 ${wasted} 點）`;
+          message = `你有 ${wasted} 點技能點沒有使用就消失了。\n就像虛度光陰一樣，這些能力永遠追不回來 — 去職業推薦看看，離夢想還有多遠？`;
+        }
+
+        showToast(title, message, stage.icon, () => navigate('abilities'));
       } else {
         renderAlloc();
       }
-    });
+    }, { strictAllocation: state.settings?.strictAllocation !== false });
   }
 
   if (stage.hasTrack) {
@@ -531,6 +573,7 @@ async function boot() {
     await loadData();
     state = loadState() || createDefaultState();
     if (!state.stats) state.stats = { reverseExploreCount: 0, tutorialSeen: false };
+    if (!state.settings) state.settings = { strictAllocation: true };
     init();
   } catch (err) {
     document.getElementById('app').innerHTML = `

@@ -3,13 +3,34 @@ import { renderPointPool } from './ui.js';
 
 const TOTAL_POINTS = 10;
 
-export function renderAllocation(container, subjects, allocation, onChange) {
+export function renderAllocation(container, subjects, allocation, onChange, options = {}) {
+  const { strictAllocation = true } = options;
   const used = getTotalPoints(allocation, subjects);
   const remaining = TOTAL_POINTS - used;
+  const canSubmit = strictAllocation ? remaining === 0 : true;
+
+  let pointsClass = '';
+  if (remaining === 0) pointsClass = 'ready';
+  else if (remaining < 0) pointsClass = 'warning';
+  else if (!strictAllocation && remaining > 0) pointsClass = 'waste';
+
+  const submitLabel = strictAllocation
+    ? remaining !== 0
+      ? `還有 ${remaining} 點未分配`
+      : '確認分配 ✓'
+    : remaining > 0
+      ? `確認分配（浪費 ${remaining} 點）→`
+      : '確認分配 ✓';
 
   container.innerHTML = `
-    <div class="remaining-points ${remaining === 0 ? 'ready' : remaining < 0 ? 'warning' : ''}">
+    ${
+      !strictAllocation
+        ? `<p class="allocation-hint">💡 自由模式：不必分配完 10 點也能進下一章，但<strong>未使用的點數會永久消失</strong>。</p>`
+        : ''
+    }
+    <div class="remaining-points ${pointsClass}">
       剩餘技能點：<span class="count">${remaining}</span> / ${TOTAL_POINTS}
+      ${!strictAllocation && remaining > 0 ? '<span class="waste-note">（將被浪費）</span>' : ''}
     </div>
     <div class="point-pool">${renderPointPool(used, TOTAL_POINTS)}</div>
     <div class="allocation-list">
@@ -29,8 +50,8 @@ export function renderAllocation(container, subjects, allocation, onChange) {
         .join('')}
     </div>
     <div class="nav-actions" style="margin-top: 1.5rem">
-      <button class="btn btn-primary" id="submit-allocation" ${remaining !== 0 ? 'disabled' : ''}>
-        ${remaining !== 0 ? `還有 ${remaining} 點未分配` : '確認分配 ✓'}
+      <button class="btn btn-primary" id="submit-allocation" ${canSubmit ? '' : 'disabled'}>
+        ${submitLabel}
       </button>
     </div>
   `;
@@ -57,9 +78,10 @@ export function renderAllocation(container, subjects, allocation, onChange) {
   });
 
   container.querySelector('#submit-allocation')?.addEventListener('click', () => {
-    if (getTotalPoints(allocation, subjects) === TOTAL_POINTS) {
-      onChange(allocation, true);
-    }
+    const usedNow = getTotalPoints(allocation, subjects);
+    if (strictAllocation && usedNow !== TOTAL_POINTS) return;
+    if (usedNow > TOTAL_POINTS) return;
+    onChange(allocation, true);
   });
 }
 

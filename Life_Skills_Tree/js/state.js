@@ -18,6 +18,9 @@ export function createDefaultState() {
       reverseExploreCount: 0,
       tutorialSeen: false,
     },
+    settings: {
+      strictAllocation: true,
+    },
   };
 }
 

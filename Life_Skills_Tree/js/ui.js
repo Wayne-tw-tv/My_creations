@@ -20,7 +20,7 @@ export function showToast(title, message, icon, onClose) {
     <div class="card card-glow toast-card">
       <div class="toast-icon">${icon}</div>
       <h2>${escapeHtml(title)}</h2>
-      <p style="color: var(--text-secondary); margin: 0.75rem 0 1.5rem">${escapeHtml(message)}</p>
+      <p style="color: var(--text-secondary); margin: 0.75rem 0 1.5rem; white-space: pre-line">${escapeHtml(message)}</p>
       <button class="btn btn-primary" id="toast-close">太棒了！</button>
     </div>
   `;
