@@ -172,7 +172,7 @@
   gap: 1rem;
 }
 
-.settings-info strong {
+.settings-info > strong {
   display: block;
   margin-bottom: 0.35rem;
 }
@@ -186,6 +186,11 @@
 .settings-desc {
   font-size: 0.8rem !important;
   color: var(--text-muted) !important;
+}
+
+.settings-desc .text-waste {
+  font-weight: 700;
+  color: #f472b6;
 }
 
 .toggle-switch {
