@@ -186,9 +186,9 @@ function renderGameSettings() {
       <div class="settings-info">
         <strong>🎛️ 技能點規則</strong>
         <p>${strict
-          ? '目前：<span class="badge badge-gold">嚴格模式</span> — 必須分配完 10 點才能進入下一章'
+          ? '目前：<span class="badge badge-gold">一般模式</span> — 必須分配完 10 點才能進入下一章'
           : '目前：<span class="badge badge-blue">自由模式</span> — 可浪費未使用的點數直接前進'}</p>
-        <p class="settings-desc">關閉嚴格模式時，每一章未分配的點數會<br><strong class="text-waste">永久消失</strong>，就像虛度光陰，不認真學習 — 勇者最終能力不足以選擇夢想職業。</p>
+        <p class="settings-desc">關閉一般模式時，每一章未分配的點數會<br><strong class="text-waste">永久消失</strong>，就像虛度光陰，不認真學習 — 勇者最終能力不足以選擇夢想職業。</p>
       </div>
       <label class="toggle-switch" title="切換是否必須分配完 10 點">
         <input type="checkbox" id="toggle-strict-allocation" ${strict ? 'checked' : ''} />

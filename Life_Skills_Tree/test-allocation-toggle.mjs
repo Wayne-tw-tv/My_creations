@@ -56,8 +56,8 @@ async function run() {
     const settings = page.locator('#game-settings');
     await settings.waitFor();
     const settingsText = await settings.innerText();
-    if (settingsText.includes('嚴格模式')) pass('預設為嚴格模式');
-    else fail('預設為嚴格模式', settingsText.slice(0, 80));
+    if (settingsText.includes('一般模式')) pass('預設為一般模式');
+    else fail('預設為一般模式', settingsText.slice(0, 80));
 
     const toggle = page.locator('#toggle-strict-allocation');
     if (await toggle.isChecked()) pass('開關預設為 ON');
