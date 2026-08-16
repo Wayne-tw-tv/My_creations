@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>🍰 MEMORY FOOD 美食記憶王</title>
+    <meta name="description" content="記住美食，挑戰你的記憶力！經典 5 關美食翻牌遊戲。" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="bg-deco" aria-hidden="true"></div>
+    <canvas id="confetti" class="confetti-canvas" aria-hidden="true"></canvas>
+    <div id="fly-layer" class="fly-layer" aria-hidden="true"></div>
+
+    <main id="app">
+      <section id="screen-home" class="screen active" data-screen="home">
+        <div class="home-card">
+          <p class="home-kicker">🍰 MEMORY FOOD 🍰</p>
+          <h1>美食記憶大挑戰</h1>
+          <p class="home-tagline">記住美食，挑戰你的記憶力！</p>
+          <div class="home-actions">
+            <button class="btn btn-primary" data-action="start">▶ 開始遊戲</button>
+            <button class="btn btn-ghost" data-action="leaderboard">🏆 排行榜</button>
+            <button class="btn btn-ghost" data-action="records">📊 遊戲紀錄</button>
+            <button class="btn btn-ghost" data-action="settings">⚙️ 遊戲設定</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="screen-game" class="screen" data-screen="game">
+        <header class="hud">
+          <div class="hud-row">
+            <div class="hud-item">
+              <span class="hud-label">關卡</span>
+              <strong id="hud-level">Lv.1</strong>
+            </div>
+            <div class="hud-item">
+              <span class="hud-label">分數</span>
+              <strong id="hud-score">0</strong>
+            </div>
+            <div class="hud-item">
+              <span class="hud-label">⏱️ 時間</span>
+              <strong id="hud-time">00:00</strong>
+            </div>
+            <button class="btn btn-tiny" data-action="home-confirm" type="button">回首頁</button>
+          </div>
+          <div class="progress" aria-label="遊戲進度">
+            <div class="progress-top">
+              <span>冒險進度</span>
+              <strong id="progress-text">1 / 5</strong>
+            </div>
+            <div
+              id="progress-bar"
+              class="progress-track"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="5"
+              aria-valuenow="1"
+            >
+              <div id="progress-fill" class="progress-fill"></div>
+            </div>
+            <ol id="progress-steps" class="progress-steps"></ol>
+          </div>
+          <div class="hud-row hud-stats">
+            <span>🎯 配對 <b id="hud-pairs">0 / 8</b></span>
+            <span>🔄 翻牌 <b id="hud-flips">0</b></span>
+            <span>❌ 錯誤 <b id="hud-mistakes">0</b></span>
+            <span>🔥 Combo <b id="hud-combo">0</b></span>
+          </div>
+        </header>
+        <p id="landscape-hint" class="landscape-hint hidden">📱 大棋盤建議橫向遊玩，卡片可上下捲動</p>
+        <div id="preview-banner" class="preview-banner" aria-hidden="true">
+          <span class="preview-label">記住這些美食！</span>
+          <strong id="preview-count" class="preview-count">5</strong>
+        </div>
+        <div class="board-wrap">
+          <div id="board" class="board" role="grid" aria-label="翻牌棋盤"></div>
+        </div>
+        <div id="combo-toast" class="combo-toast" aria-live="polite"></div>
+      </section>
+
+      <section id="screen-final" class="screen" data-screen="final">
+        <div class="panel final-panel">
+          <p class="panel-kicker">🏆 最終評價</p>
+          <h2 id="final-title">👑 美食記憶王</h2>
+          <p id="final-score" class="final-score">0</p>
+          <ul class="final-stats">
+            <li>總用時 <b id="final-time">00:00</b></li>
+            <li>總星數 <b id="final-stars">0 / 15</b></li>
+            <li>最高 Combo <b id="final-combo">0</b></li>
+            <li>錯誤次數 <b id="final-mistakes">0</b></li>
+            <li>正確率 <b id="final-accuracy">0%</b></li>
+          </ul>
+          <div class="home-actions">
+            <button class="btn btn-primary" data-action="leaderboard">🏆 查看排行榜</button>
+            <button class="btn btn-ghost" data-action="start">再來一局</button>
+            <button class="btn btn-ghost" data-action="home">回首頁</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="screen-leaderboard" class="screen" data-screen="leaderboard">
+        <div class="panel">
+          <h2>🏆 美食記憶排行榜</h2>
+          <div id="leaderboard-list" class="table-list"></div>
+          <button class="btn btn-primary" data-action="home">回首頁</button>
+        </div>
+      </section>
+
+      <section id="screen-records" class="screen" data-screen="records">
+        <div class="panel">
+          <h2>📊 遊戲紀錄</h2>
+          <div id="records-list" class="table-list"></div>
+          <button class="btn btn-primary" data-action="home">回首頁</button>
+        </div>
+      </section>
+
+      <section id="screen-settings" class="screen" data-screen="settings">
+        <div class="panel">
+          <h2>⚙️ 遊戲設定</h2>
+          <label class="field">
+            玩家暱稱
+            <input id="setting-name" type="text" maxlength="16" placeholder="美食探險家" />
+          </label>
+          <label class="toggle">
+            <input id="setting-sfx" type="checkbox" checked />
+            <span>音效 SFX</span>
+          </label>
+          <label class="toggle">
+            <input id="setting-bgm" type="checkbox" checked />
+            <span>背景音樂 BGM</span>
+          </label>
+          <div class="home-actions">
+            <button class="btn btn-primary" data-action="save-settings">儲存</button>
+            <button class="btn btn-ghost" data-action="home">回首頁</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="modal-name" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="name-title">
+      <div class="modal-card">
+        <h2 id="name-title">你的廚師暱稱？</h2>
+        <input id="name-input" type="text" maxlength="16" placeholder="美食探險家" />
+        <button class="btn btn-primary" data-action="confirm-name">開始冒險</button>
+      </div>
+    </div>
+
+    <div id="modal-boss" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-card boss-card">
+        <p class="boss-crown">👑</p>
+        <h2>FOOD MEMORY BOSS</h2>
+        <p>終極美食記憶挑戰</p>
+        <ul class="boss-facts">
+          <li>20 張卡片</li>
+          <li>10 組配對</li>
+          <li>Combo 加成</li>
+          <li>最終挑戰</li>
+        </ul>
+        <button class="btn btn-primary" data-action="skip-boss">開始挑戰</button>
+      </div>
+    </div>
+
+    <div id="modal-clear" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-card clear-card">
+        <p class="clear-burst">🎉 LEVEL CLEAR</p>
+        <div id="clear-stars" class="stars">⭐⭐⭐</div>
+        <p id="clear-score" class="clear-score">+0</p>
+        <p id="clear-quote" class="clear-quote"></p>
+        <p id="clear-progress" class="clear-progress"></p>
+        <div class="home-actions">
+          <button class="btn btn-primary" id="btn-next" data-action="next-level">下一關</button>
+          <button class="btn btn-ghost" data-action="retry-level">再玩一次挑戰三星</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-leave" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <h2>要回首頁嗎？</h2>
+        <p>目前這局進度不會存進排行榜。</p>
+        <div class="home-actions">
+          <button class="btn btn-primary" data-action="leave-yes">回首頁</button>
+          <button class="btn btn-ghost" data-action="leave-no">繼續玩</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
