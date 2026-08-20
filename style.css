@@ -293,6 +293,12 @@ body {
   height: 26px;
 }
 
+.portfolio-icon img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
 .portfolio-icon--coffee {
   background: linear-gradient(135deg, #6f4e37 0%, #4a3228 100%);
   color: #f5e6d3;
@@ -363,6 +369,12 @@ body {
   background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
   color: #fefce8;
   box-shadow: 0 4px 12px rgba(202, 138, 4, 0.35);
+}
+
+.portfolio-icon--elrs {
+  background: #ffffff;
+  border: 1px solid rgba(43, 108, 176, 0.15);
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.12);
 }
 
 .portfolio-content {
