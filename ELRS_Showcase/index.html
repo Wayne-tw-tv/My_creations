@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>信望愛員工學習課程管理系統 · 功能展示</title>
+  <link rel="icon" href="logo.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="#top">
+      <img src="logo.png" alt="信望愛">
+      <span>功能展示</span>
+    </a>
+    <nav>
+      <a href="#overview">系統定位</a>
+      <a href="#modules">功能一覽</a>
+      <a href="#walk">畫面導覽</a>
+      <a href="#ops">部署方式</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <p class="eyebrow">單機 · Windows · 不連外網</p>
+      <h1>信望愛員工學習課程管理系統</h1>
+      <p class="lead">給社福機構把在職訓練從 Excel 收成可查、可印、可備份的一套本機系統。員工、研習記錄、證明列印、15 欄匯入匯出都在瀏覽器裡完成。</p>
+      <ul class="hero-meta">
+        <li>本機 http://127.0.0.1:8000</li>
+        <li>Win10 / Win11 64-bit</li>
+      </ul>
+    </section>
+
+    <section id="overview" class="block">
+      <h2>這套系統在解什麼</h2>
+      <div class="grid-3">
+        <article>
+          <h3>登錄一次、寫給多人</h3>
+          <p>同一門課填日期、課名、講師、時數與訓練類別，勾選員工後一次寫入。同人同日同課且講師／時數／類別相同會自動略過。</p>
+        </article>
+        <article>
+          <h3>證明可直接送印</h3>
+          <p>依部門篩員工，產出 A4 在職訓練研習證明。跨頁只在最後一頁印時數合計，表頭仍會重複。</p>
+        </article>
+        <article>
+          <h3>Excel 當完整備份</h3>
+          <p>15 欄固定格式。匯入是全部取代（先清再寫），請先匯出。缺欄會指出 Excel 第幾列；重複列也會列出列號。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="modules" class="block">
+      <h2>七個工作畫面</h2>
+      <ol class="module-list">
+        <li><a href="#p-login">登入</a> — 可改密碼</li>
+        <li><a href="#p-employees">員工資料</a> — 中心／類型／部門／部門序／職稱，在職與離職</li>
+        <li><a href="#p-bulk">課程登錄</a> — 一課多人，依中心與部門分組勾選</li>
+        <li><a href="#p-training">研習記錄</a> — 篩選、刪除、依目前條件匯出</li>
+        <li><a href="#p-cert">研習證明</a> — 選部門與員工，或「全部（此部門）」</li>
+        <li><a href="#p-excel">EXCEL</a> — 範本、全部取代匯入、全部匯出</li>
+        <li><a href="#p-notes">使用注意事項</a> — 操作規則寫在系統裡</li>
+      </ol>
+    </section>
+
+    <section id="walk" class="walk">
+      <h2>實際畫面</h2>
+      <p class="walk-note">以下截圖取自本機執行中的系統，未改過程式。長列表頁以一屏為準。</p>
+
+      <figure id="p-login" class="shot">
+        <div class="chrome"><span></span><span></span><span></span><em>登入</em></div>
+        <img src="images/01-login.png" alt="登入頁：帳號密碼與系統名稱">
+        <figcaption>
+          <h3>登入</h3>
+          <p>出廠帳號，啟用後請立刻更換。畫面底部有版權標註。</p>
+        </figcaption>
+      </figure>
+
+      <figure id="p-employees" class="shot">
+        <div class="chrome"><span></span><span></span><span></span><em>員工資料</em></div>
+        <img src="images/02-employees.png" alt="員工資料列表與篩選">
+        <figcaption>
+          <h3>員工資料</h3>
+          <p>身分證字號當唯一鍵。列表可改中心、類型、部門、部門序、職稱、姓名後按該列儲存。可設離職或刪除（研習一併刪）。</p>
+        </figcaption>
+      </figure>
+
+      <figure id="p-bulk" class="shot">
+        <div class="chrome"><span></span><span></span><span></span><em>課程登錄</em></div>
+        <img src="images/03-training-bulk.png" alt="課程登錄表單與依部門勾選員工">
+        <figcaption>
+          <h3>課程登錄</h3>
+          <p>日期支援民國 <code>1150101</code> 或西元。訓練類別為：1.職前教育訓練、2.每年必備在職教育訓練、3.其他在職教育訓練。可全選或依部門全選在職員工。</p>
+        </figcaption>
+      </figure>
+
+      <figure id="p-training" class="shot">
+        <div class="chrome"><span></span><span></span><span></span><em>研習記錄</em></div>
+        <img src="images/04-training.png" alt="研習記錄篩選與列表">
+        <figcaption>
+          <h3>研習記錄</h3>
+          <p>依中心、部門、姓名／身分證／課程、日期區間查詢。此頁「匯出 EXCEL」只出目前篩選結果，不是一定全部。</p>
+        </figcaption>
+      </figure>
+
+      <figure id="p-cert" class="shot">
+        <div class="chrome"><span></span><span></span><span></span><em>研習證明</em></div>
+        <img src="images/05-certificates.png" alt="研習證明列印條件表單">
+        <figcaption>
+          <h3>研習證明</h3>
+          <p>先選部門縮小名單，再選一位員工，或明確選「全部（此部門）」。停在「請選擇」不會當成全員列印。</p>
+        </figcaption>
+      </figure>
+
+      <figure id="p-print" class="shot">
+        <div class="chrome"><span></span><span></span><span></span><em>證明預覽 · A4</em></div>
+        <img src="images/09-certificate-print.png" alt="在職訓練研習證明列印預覽">
+        <figcaption>
+          <h3>列印預覽</h3>
+          <p>每人一張 A4。欄位含日期、課程、講師、開課單位、專業／一般時數、核備文號、類別。時數合計只出現在最後一頁。瀏覽器列印時按鈕會隱藏。</p>
+        </figcaption>
+      </figure>
+
+      <figure id="p-excel" class="shot">
+        <div class="chrome"><span></span><span></span><span></span><em>EXCEL</em></div>
+        <img src="images/06-excel.png" alt="Excel 匯入匯出與 15 欄說明">
+        <figcaption>
+          <h3>EXCEL 匯入／匯出</h3>
+          <p>匯入會清掉全部員工與研習再以檔案為準（登入帳號保留）。部門可寫「3-潭子中心」。同一人同日同課，且講師、專業、一般、訓練類別也相同，才視為重複。</p>
+        </figcaption>
+      </figure>
+
+      <figure id="p-notes" class="shot">
+        <div class="chrome"><span></span><span></span><span></span><em>使用注意事項</em></div>
+        <img src="images/07-notes.png" alt="使用注意事項說明頁">
+        <figcaption>
+          <h3>使用注意事項</h3>
+          <p>帳號、備份、匯入規則、列印習慣都寫在系統內，給現場人員直接翻。頁尾同樣有版權標註。</p>
+        </figcaption>
+      </figure>
+
+      <figure id="p-password" class="shot">
+        <div class="chrome"><span></span><span></span><span></span><em>修改密碼</em></div>
+        <img src="images/08-change-password.png" alt="修改密碼表單">
+        <figcaption>
+          <h3>修改密碼</h3>
+          <p>須驗證目前密碼。新密碼至少 XX 字，不可與舊密碼相同。</p>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section id="ops" class="block">
+      <h2>怎麼給現場用</h2>
+      <div class="grid-2">
+        <article>
+          <h3>開發機</h3>
+          <p>Python 3.11+，雙擊 <code>run.bat</code>。第一次要上網裝套件。</p>
+        </article>
+        <article>
+          <h3>限制</h3>
+          <p>綁本機 127.0.0.1，區網連不進。同時只開一份。Win10／Win11 64-bit；Server 2019（有桌面）可測。</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>此頁為獨立靜態展示，不含系統程式，亦未修改原系統檔案。</p>
+    <p>© 2026 Wayne Tai 想想工作室. 版權所有。</p>
+  </footer>
+</body>
+</html>
