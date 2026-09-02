@@ -132,6 +132,14 @@ p:last-child {
   font-size: clamp(1.75rem, 3vw, 2.4rem);
 }
 
+#about .section-head {
+  max-width: none;
+}
+
+#about .section-head h2 {
+  white-space: nowrap;
+}
+
 .section-desc {
   color: color-mix(in srgb, var(--ink) 72%, var(--linen));
 }
@@ -258,14 +266,22 @@ textarea:focus-visible {
 
 .brand {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  line-height: 1.15;
   flex-shrink: 0;
 }
 
-.brand-logo {
-  display: block;
-  height: 2.85rem;
-  width: auto;
+.brand-zh {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  letter-spacing: 0.18em;
+}
+
+.brand-en {
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--warm);
 }
 
 .footer-logo {
@@ -711,6 +727,10 @@ textarea:focus-visible {
     padding: 7rem 0 4rem;
   }
 
+  #about .section-head h2 {
+    font-size: clamp(1.05rem, 4.4vw, 1.75rem);
+  }
+
   .hero-bg {
     object-position: center 36%;
   }
@@ -721,10 +741,6 @@ textarea:focus-visible {
       color-mix(in srgb, var(--ink) 22%, transparent) 0%,
       color-mix(in srgb, var(--ink) 68%, transparent) 100%
     );
-  }
-
-  .brand-logo {
-    height: 2.35rem;
   }
 
   .hero-cta .btn {
