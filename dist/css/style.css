@@ -272,12 +272,14 @@ textarea:focus-visible {
 }
 
 .brand-zh {
+  display: block;
   font-family: var(--serif);
   font-size: 1.05rem;
   letter-spacing: 0.18em;
 }
 
 .brand-en {
+  display: block;
   font-size: 0.65rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
