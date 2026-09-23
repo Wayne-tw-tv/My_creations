@@ -1,0 +1,1745 @@
+/* ==========================================================================
+   樂風歐式麵包 (Le Feng Artisan Bakery) - 全站核心樣式表
+   設計哲學：熱血職人、麥香烈火、歐陸正統、自然純粹
+   品牌色系：
+   - 麥金烈陽黃: #E5A93C, #FFC83B
+   - 炭火赤熱紅: #C53030, #E53E3E
+   - 歐式殿堂藍: #1B2A4A, #243B6B
+   - 熟焙濃香咖: #3D271D, #5C3A21
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Noto+Serif+TC:wght@400;600;700;900&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* 核心品牌色系 */
+  --c-yellow: #E5A93C;
+  --c-yellow-light: #FDE8B3;
+  --c-yellow-glow: #FFB703;
+  --c-yellow-dark: #C6881B;
+
+  --c-red: #C53030;
+  --c-red-light: #FED7D7;
+  --c-red-glow: #E53E3E;
+  --c-red-dark: #822727;
+
+  --c-blue: #1B2A4A;
+  --c-blue-light: #2A4374;
+  --c-blue-dark: #0F172A;
+  --c-blue-surface: #203158;
+
+  --c-brown: #3D271D;
+  --c-brown-light: #5C3A21;
+  --c-brown-muted: #825838;
+  --c-parchment: #FAF7F2;
+  --c-parchment-warm: #F3ECE2;
+
+  --c-text-primary: #211714;
+  --c-text-secondary: #5C524E;
+  --c-text-light: #8E827B;
+  --c-white: #FFFFFF;
+
+  /* 陰影與光暈 */
+  --shadow-sm: 0 2px 8px rgba(33, 23, 20, 0.08);
+  --shadow-md: 0 6px 20px rgba(33, 23, 20, 0.12);
+  --shadow-lg: 0 16px 36px rgba(33, 23, 20, 0.18);
+  --shadow-fire: 0 8px 25px rgba(197, 48, 48, 0.35);
+  --shadow-gold: 0 8px 25px rgba(229, 169, 60, 0.35);
+
+  /* 字體系統 */
+  --font-serif: 'Noto Serif TC', serif;
+  --font-display: 'Cinzel', serif;
+  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* 圓角與邊框 */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  --border-subtle: 1px solid rgba(61, 39, 29, 0.12);
+
+  /* 動畫速度 */
+  --trans-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --trans-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --trans-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ==========================================================================
+   全域基礎重置
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-serif);
+  color: var(--c-text-primary);
+  background-color: var(--c-parchment);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--c-brown);
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.05em;
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--trans-fast);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ==========================================================================
+   頂部導覽列 (Header & Navbar)
+   ========================================================================== */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(27, 42, 74, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 2px solid var(--c-yellow);
+  box-shadow: var(--shadow-md);
+  transition: all var(--trans-smooth);
+}
+
+.site-header.scrolled {
+  background: rgba(15, 23, 42, 0.98);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.brand-logo .logo-icon {
+  width: 46px;
+  height: 46px;
+  background: linear-gradient(135deg, var(--c-yellow) 0%, var(--c-red) 100%);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-white);
+  font-size: 24px;
+  box-shadow: var(--shadow-fire);
+  transition: transform var(--trans-bounce);
+}
+
+.brand-logo:hover .logo-icon {
+  transform: rotate(10deg) scale(1.08);
+}
+
+.brand-logo .logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-logo .logo-title {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--c-white);
+  letter-spacing: 0.1em;
+  line-height: 1.1;
+}
+
+.brand-logo .logo-subtitle {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--c-yellow);
+  text-transform: uppercase;
+  font-family: var(--font-display);
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.88);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 8px 4px;
+  position: relative;
+  letter-spacing: 0.05em;
+  transition: color var(--trans-fast);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--c-yellow), var(--c-red));
+  border-radius: 2px;
+  transition: width var(--trans-smooth);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--c-yellow);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* 預購提袋按鈕 */
+.cart-trigger-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(229, 169, 60, 0.4);
+  color: var(--c-white);
+  padding: 9px 18px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  transition: all var(--trans-fast);
+}
+
+.cart-trigger-btn:hover {
+  background: var(--c-yellow);
+  color: var(--c-blue-dark);
+  border-color: var(--c-yellow);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+
+.cart-badge {
+  background: var(--c-red);
+  color: var(--c-white);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 10px;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* 行動版漢堡切換鈕 */
+.mobile-nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--c-white);
+  font-size: 26px;
+  cursor: pointer;
+  padding: 6px;
+}
+
+/* ==========================================================================
+   按鈕與通用元件 (Buttons & Badges)
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 30px;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--trans-smooth);
+  text-decoration: none;
+  border: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--c-yellow) 0%, #D68C14 100%);
+  color: var(--c-blue-dark);
+  box-shadow: var(--shadow-gold);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #FFC83B 0%, var(--c-yellow) 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(229, 169, 60, 0.45);
+}
+
+.btn-fire {
+  background: linear-gradient(135deg, var(--c-red) 0%, #9B1C1C 100%);
+  color: var(--c-white);
+  box-shadow: var(--shadow-fire);
+}
+
+.btn-fire:hover {
+  background: linear-gradient(135deg, var(--c-red-glow) 0%, var(--c-red) 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(229, 62, 62, 0.5);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--c-white);
+  border: 2px solid var(--c-white);
+}
+
+.btn-outline:hover {
+  background: var(--c-white);
+  color: var(--c-blue);
+  transform: translateY(-3px);
+}
+
+.btn-outline-dark {
+  background: transparent;
+  color: var(--c-blue);
+  border: 2px solid var(--c-blue);
+}
+
+.btn-outline-dark:hover {
+  background: var(--c-blue);
+  color: var(--c-white);
+  transform: translateY(-3px);
+}
+
+.btn-sm {
+  padding: 8px 18px;
+  font-size: 13px;
+}
+
+/* 標籤 Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-yellow {
+  background: var(--c-yellow-light);
+  color: var(--c-brown);
+}
+
+.badge-red {
+  background: var(--c-red-light);
+  color: var(--c-red-dark);
+}
+
+.badge-blue {
+  background: rgba(27, 42, 74, 0.12);
+  color: var(--c-blue);
+}
+
+.badge-fire {
+  background: linear-gradient(90deg, var(--c-red), var(--c-yellow));
+  color: var(--c-white);
+}
+
+/* ==========================================================================
+   區塊標題模組 (Section Titles)
+   ========================================================================== */
+.section-header {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 60px;
+}
+
+.section-tag {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--c-red);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.section-title {
+  font-size: 40px;
+  font-weight: 900;
+  color: var(--c-blue);
+  margin-bottom: 18px;
+  line-height: 1.25;
+}
+
+.section-title span.highlight {
+  color: var(--c-red);
+  position: relative;
+  display: inline-block;
+}
+
+.section-title span.highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: var(--c-yellow-light);
+  z-index: -1;
+  border-radius: 4px;
+}
+
+.section-desc {
+  font-size: 17px;
+  color: var(--c-text-secondary);
+  line-height: 1.8;
+}
+
+/* ==========================================================================
+   首頁 Hero 烈火狂瀾
+   ========================================================================== */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  padding-top: 130px;
+  padding-bottom: 80px;
+  display: flex;
+  align-items: center;
+  background: radial-gradient(circle at 75% 30%, rgba(229, 62, 62, 0.25) 0%, transparent 60%),
+              radial-gradient(circle at 20% 80%, rgba(229, 169, 60, 0.2) 0%, transparent 55%),
+              linear-gradient(135deg, var(--c-blue-dark) 0%, var(--c-blue) 100%);
+  color: var(--c-white);
+  overflow: hidden;
+}
+
+.hero-overlay-grain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.15;
+  background-image: radial-gradient(#FFC83B 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.hero-flame-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(197, 48, 48, 0.35);
+  border: 1px solid rgba(229, 62, 62, 0.6);
+  color: #FFA4A4;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  font-weight: 700;
+  width: fit-content;
+  backdrop-filter: blur(8px);
+}
+
+.hero-title {
+  font-size: 54px;
+  font-weight: 900;
+  line-height: 1.2;
+  color: var(--c-white);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.hero-title .glow-yellow {
+  color: var(--c-yellow);
+  text-shadow: 0 0 25px rgba(229, 169, 60, 0.6);
+}
+
+.hero-title .glow-red {
+  color: #FF5A5A;
+  text-shadow: 0 0 25px rgba(229, 62, 62, 0.7);
+}
+
+.hero-manifesto {
+  font-size: 18px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.88);
+  border-left: 4px solid var(--c-yellow);
+  padding-left: 18px;
+  margin: 8px 0;
+}
+
+.hero-cta-group {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 30px;
+  padding-top: 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.hero-stat-item .stat-num {
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 900;
+  color: var(--c-yellow);
+  line-height: 1;
+}
+
+.hero-stat-item .stat-label {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 4px;
+}
+
+/* 視覺展示圖卡 (Hero Visual) */
+.hero-visual-wrapper {
+  position: relative;
+}
+
+.hero-main-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(229, 169, 60, 0.4);
+  transform: perspective(1000px) rotateY(-3deg) rotateX(2deg);
+  transition: transform var(--trans-smooth);
+}
+
+.hero-main-card:hover {
+  transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.02);
+}
+
+.hero-main-card img {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+}
+
+.hero-floating-badge {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  background: rgba(27, 42, 74, 0.88);
+  backdrop-filter: blur(14px);
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero-floating-badge .badge-title {
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--c-white);
+}
+
+.hero-floating-badge .badge-sub {
+  font-size: 12px;
+  color: var(--c-yellow);
+}
+
+/* ==========================================================================
+   三大鎮店神作 (The Big 3 Section)
+   ========================================================================== */
+.signature-section {
+  padding: 100px 0;
+  background: var(--c-parchment);
+}
+
+.signature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.signature-card {
+  background: var(--c-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: var(--border-subtle);
+  transition: all var(--trans-smooth);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.signature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--c-yellow);
+}
+
+.card-ribbon {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 10;
+}
+
+.signature-img-box {
+  height: 280px;
+  overflow: hidden;
+  position: relative;
+}
+
+.signature-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.signature-card:hover .signature-img-box img {
+  transform: scale(1.08);
+}
+
+.signature-card-body {
+  padding: 28px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.signature-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.item-price {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--c-red);
+}
+
+.item-price small {
+  font-size: 14px;
+  color: var(--c-text-light);
+  font-family: var(--font-sans);
+  margin-right: 2px;
+}
+
+.signature-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--c-blue);
+  margin-bottom: 12px;
+}
+
+.signature-desc {
+  font-size: 15px;
+  color: var(--c-text-secondary);
+  margin-bottom: 20px;
+  flex: 1;
+  line-height: 1.7;
+}
+
+.crunch-meter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 10px 14px;
+  background: var(--c-parchment);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.crunch-flames {
+  color: var(--c-red);
+  letter-spacing: 2px;
+}
+
+/* ==========================================================================
+   出爐時刻鐘錶 (Baking Live Timetable)
+   ========================================================================== */
+.schedule-section {
+  padding: 90px 0;
+  background: linear-gradient(135deg, var(--c-blue) 0%, var(--c-blue-dark) 100%);
+  color: var(--c-white);
+  position: relative;
+}
+
+.schedule-header {
+  color: var(--c-white);
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.schedule-header .section-title {
+  color: var(--c-white);
+}
+
+.timeline-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.schedule-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(229, 169, 60, 0.25);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  position: relative;
+  transition: all var(--trans-smooth);
+}
+
+.schedule-card.active-slot {
+  background: rgba(229, 169, 60, 0.15);
+  border-color: var(--c-yellow);
+  box-shadow: var(--shadow-gold);
+}
+
+.schedule-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.time-badge {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--c-yellow);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.time-status {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--c-red);
+  color: var(--c-white);
+  vertical-align: middle;
+}
+
+.schedule-card.active-slot .time-status {
+  background: var(--c-yellow);
+  color: var(--c-blue-dark);
+}
+
+.schedule-items-list {
+  list-style: none;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.schedule-items-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.schedule-items-list li::before {
+  content: '🥖';
+  font-size: 13px;
+}
+
+/* ==========================================================================
+   四大鐵律 (Commitment / Four Iron Rules)
+   ========================================================================== */
+.promise-section {
+  padding: 100px 0;
+  background: var(--c-parchment-warm);
+}
+
+.promise-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+.promise-box {
+  background: var(--c-white);
+  padding: 36px 24px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  border-top: 4px solid var(--c-yellow);
+  transition: all var(--trans-smooth);
+}
+
+.promise-box:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-md);
+  border-top-color: var(--c-red);
+}
+
+.promise-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-full);
+  background: var(--c-parchment);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 auto 20px;
+  color: var(--c-brown);
+}
+
+.promise-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--c-blue);
+  margin-bottom: 12px;
+}
+
+.promise-desc {
+  font-size: 14px;
+  color: var(--c-text-secondary);
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   產品列表頁面 (Products Catalog Page)
+   ========================================================================== */
+.page-banner {
+  padding: 140px 0 70px;
+  background: linear-gradient(135deg, var(--c-blue-dark) 0%, var(--c-blue) 100%);
+  color: var(--c-white);
+  text-align: center;
+  position: relative;
+}
+
+.page-banner-title {
+  font-size: 46px;
+  font-weight: 900;
+  color: var(--c-white);
+  margin-bottom: 14px;
+}
+
+.page-banner-subtitle {
+  font-size: 18px;
+  color: var(--c-yellow-light);
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+/* 產品分類 Filter */
+.filter-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 40px 0 50px;
+}
+
+.filter-btn {
+  padding: 10px 24px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(61, 39, 29, 0.18);
+  background: var(--c-white);
+  color: var(--c-text-secondary);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all var(--trans-fast);
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: var(--c-blue);
+  color: var(--c-white);
+  border-color: var(--c-blue);
+  box-shadow: var(--shadow-sm);
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, var(--c-blue) 0%, var(--c-blue-surface) 100%);
+  border-color: var(--c-yellow);
+}
+
+/* 產品網格 */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 80px;
+}
+
+.product-item {
+  background: var(--c-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: var(--border-subtle);
+  transition: all var(--trans-smooth);
+  display: flex;
+  flex-direction: column;
+}
+
+.product-item:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--c-yellow);
+}
+
+.product-thumb {
+  height: 240px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.product-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.product-item:hover .product-thumb img {
+  transform: scale(1.06);
+}
+
+.product-badges {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 2;
+}
+
+.product-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.product-tags {
+  font-size: 12px;
+  color: var(--c-text-light);
+  margin-bottom: 6px;
+}
+
+.product-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--c-blue);
+  margin-bottom: 8px;
+}
+
+.product-desc {
+  font-size: 14px;
+  color: var(--c-text-secondary);
+  margin-bottom: 16px;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.product-meta-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  font-size: 12px;
+  background: var(--c-parchment);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 18px;
+}
+
+.spec-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--c-brown);
+}
+
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid rgba(61, 39, 29, 0.08);
+}
+
+.product-price {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--c-red);
+}
+
+.product-price small {
+  font-size: 14px;
+  color: var(--c-text-light);
+}
+
+/* ==========================================================================
+   原料介紹頁面 (Ingredients Page)
+   ========================================================================== */
+.ingredient-feature-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  padding: 80px 0;
+  border-bottom: 1px solid rgba(61, 39, 29, 0.1);
+}
+
+.ingredient-feature-row:nth-child(even) {
+  direction: rtl;
+}
+
+.ingredient-feature-row:nth-child(even) .ingredient-text {
+  direction: ltr;
+}
+
+.ingredient-img-wrap {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+.ingredient-img-wrap img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  transition: transform var(--trans-smooth);
+}
+
+.ingredient-img-wrap:hover img {
+  transform: scale(1.04);
+}
+
+.ingredient-tagline {
+  font-size: 13px;
+  font-family: var(--font-display);
+  color: var(--c-red);
+  letter-spacing: 0.2em;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.ingredient-title {
+  font-size: 34px;
+  font-weight: 900;
+  color: var(--c-blue);
+  margin-bottom: 18px;
+}
+
+.ingredient-desc {
+  font-size: 16px;
+  color: var(--c-text-secondary);
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.ingredient-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ingredient-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--c-brown);
+}
+
+.bullet-icon {
+  color: var(--c-yellow-dark);
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* 原料 vs 化學對比表格 */
+.comparison-section {
+  padding: 90px 0;
+  background: var(--c-white);
+}
+
+.comparison-table-wrap {
+  overflow-x: auto;
+  margin-top: 40px;
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-md);
+  border: var(--border-subtle);
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 15px;
+}
+
+.comparison-table th, 
+.comparison-table td {
+  padding: 18px 24px;
+  border-bottom: 1px solid rgba(61, 39, 29, 0.08);
+}
+
+.comparison-table thead th {
+  background: var(--c-blue);
+  color: var(--c-white);
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.comparison-table thead th.brand-col {
+  background: linear-gradient(135deg, var(--c-red) 0%, var(--c-yellow) 100%);
+  color: var(--c-white);
+}
+
+.comparison-table tbody tr:hover {
+  background: var(--c-parchment);
+}
+
+.comparison-table td.brand-cell {
+  font-weight: 700;
+  color: var(--c-red-dark);
+  background: rgba(229, 169, 60, 0.08);
+}
+
+/* ==========================================================================
+   職人故事頁面 (Story Page & 36h Timeline)
+   ========================================================================== */
+.story-manifesto-box {
+  background: linear-gradient(135deg, var(--c-brown) 0%, #20130D 100%);
+  color: var(--c-white);
+  padding: 70px 50px;
+  border-radius: var(--radius-lg);
+  margin: 60px 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border-left: 8px solid var(--c-red);
+}
+
+.story-manifesto-box blockquote {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: var(--c-yellow-light);
+}
+
+.story-author {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 36小時工法垂直時間軸 */
+.timeline-stepper {
+  position: relative;
+  max-width: 860px;
+  margin: 60px auto;
+  padding: 20px 0;
+}
+
+.timeline-stepper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  background: linear-gradient(180deg, var(--c-yellow), var(--c-red), var(--c-blue));
+  transform: translateX(-50%);
+}
+
+.timeline-step {
+  position: relative;
+  margin-bottom: 60px;
+  width: 50%;
+  padding: 0 40px;
+}
+
+.timeline-step:nth-child(odd) {
+  left: 0;
+  text-align: right;
+}
+
+.timeline-step:nth-child(even) {
+  left: 50%;
+  text-align: left;
+}
+
+.timeline-step-dot {
+  position: absolute;
+  top: 15px;
+  width: 24px;
+  height: 24px;
+  background: var(--c-red);
+  border: 4px solid var(--c-white);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px var(--c-yellow);
+}
+
+.timeline-step:nth-child(odd) .timeline-step-dot {
+  right: -12px;
+}
+
+.timeline-step:nth-child(even) .timeline-step-dot {
+  left: -12px;
+}
+
+.timeline-card {
+  background: var(--c-white);
+  padding: 24px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: var(--border-subtle);
+}
+
+.timeline-card .time-hour {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--c-red);
+  margin-bottom: 6px;
+}
+
+.timeline-card h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: var(--c-blue);
+}
+
+.timeline-card p {
+  font-size: 14px;
+  color: var(--c-text-secondary);
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   門市據點與預約頁面 (Contact & Location Page)
+   ========================================================================== */
+.contact-layout-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 50px;
+  padding: 80px 0;
+}
+
+.store-card {
+  background: var(--c-white);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  box-shadow: var(--shadow-sm);
+  border: var(--border-subtle);
+  margin-bottom: 30px;
+}
+
+.store-meta-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 24px 0;
+  font-size: 15px;
+}
+
+.store-meta-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.store-meta-list .icon {
+  font-size: 20px;
+  color: var(--c-red);
+}
+
+/* 預約表單 */
+.reservation-form-box {
+  background: var(--c-white);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  box-shadow: var(--shadow-md);
+  border-top: 6px solid var(--c-red);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--c-brown);
+  margin-bottom: 8px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(61, 39, 29, 0.2);
+  background: var(--c-parchment);
+  color: var(--c-text-primary);
+  font-size: 15px;
+  transition: all var(--trans-fast);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--c-blue);
+  background: var(--c-white);
+  box-shadow: 0 0 0 3px rgba(27, 42, 74, 0.15);
+}
+
+/* 回烤教學卡片 */
+.reheat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.reheat-card {
+  background: var(--c-white);
+  border-radius: var(--radius-md);
+  padding: 28px 20px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border-bottom: 3px solid var(--c-yellow);
+}
+
+.reheat-card .method-icon {
+  font-size: 36px;
+  margin-bottom: 14px;
+}
+
+.reheat-card h4 {
+  font-size: 18px;
+  color: var(--c-blue);
+  margin-bottom: 10px;
+}
+
+.reheat-card p {
+  font-size: 13px;
+  color: var(--c-text-secondary);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   購物預約提袋抽屜 (Cart Drawer)
+   ========================================================================== */
+.cart-drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--trans-smooth);
+}
+
+.cart-drawer-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 420px;
+  max-width: 90vw;
+  height: 100%;
+  background: var(--c-white);
+  z-index: 2001;
+  transform: translateX(100%);
+  transition: transform var(--trans-smooth);
+  display: flex;
+  flex-direction: column;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.25);
+}
+
+.cart-drawer-overlay.active .cart-drawer {
+  transform: translateX(0);
+}
+
+.cart-drawer-header {
+  padding: 24px;
+  background: var(--c-blue);
+  color: var(--c-white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cart-drawer-header h3 {
+  color: var(--c-white);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--c-white);
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.cart-items-wrap {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cart-empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--c-text-light);
+}
+
+.cart-empty-state .icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.cart-item-row {
+  display: flex;
+  gap: 14px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(61, 39, 29, 0.1);
+  align-items: center;
+}
+
+.cart-item-img {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+
+.cart-item-info {
+  flex: 1;
+}
+
+.cart-item-title {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--c-blue);
+}
+
+.cart-item-price {
+  font-weight: 800;
+  color: var(--c-red);
+  font-size: 14px;
+}
+
+.cart-qty-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cart-qty-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid rgba(61, 39, 29, 0.2);
+  background: var(--c-parchment);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.cart-drawer-footer {
+  padding: 24px;
+  background: var(--c-parchment);
+  border-top: 1px solid rgba(61, 39, 29, 0.1);
+}
+
+.cart-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.cart-total-price {
+  font-family: var(--font-display);
+  font-size: 26px;
+  color: var(--c-red);
+}
+
+/* ==========================================================================
+   快顯通知與彈窗 (Toast & Modal)
+   ========================================================================== */
+.toast-notice {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: var(--c-blue-dark);
+  color: var(--c-white);
+  padding: 16px 24px;
+  border-radius: var(--radius-md);
+  border-left: 5px solid var(--c-yellow);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 3000;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all var(--trans-bounce);
+}
+
+.toast-notice.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* 詳情彈窗 Modal */
+.product-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 2500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--trans-smooth);
+}
+
+.product-modal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.product-modal-card {
+  background: var(--c-white);
+  border-radius: var(--radius-lg);
+  max-width: 680px;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  transform: scale(0.9);
+  transition: transform var(--trans-bounce);
+}
+
+.product-modal-backdrop.active .product-modal-card {
+  transform: scale(1);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--c-white);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  z-index: 10;
+}
+
+/* ==========================================================================
+   頁尾 (Footer)
+   ========================================================================== */
+.site-footer {
+  background: var(--c-blue-dark);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 80px 0 30px;
+  border-top: 3px solid var(--c-yellow);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.footer-brand .logo-title {
+  color: var(--c-white);
+  font-size: 24px;
+}
+
+.footer-manifesto {
+  font-size: 14px;
+  line-height: 1.8;
+  margin-top: 16px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.footer-col h4 {
+  color: var(--c-yellow);
+  font-size: 18px;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.footer-col h4::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 32px;
+  height: 2px;
+  background: var(--c-red);
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.footer-links a:hover {
+  color: var(--c-yellow);
+  padding-left: 5px;
+}
+
+.footer-contact-info {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.footer-contact-info li {
+  display: flex;
+  gap: 10px;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+}

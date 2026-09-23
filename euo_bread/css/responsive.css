@@ -1,0 +1,163 @@
+/* ==========================================================================
+   樂風歐式麵包 - 響應式斷點調校 (responsive.css)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .hero-flame-tag {
+    margin: 0 auto;
+  }
+
+  .hero-manifesto {
+    border-left: none;
+    border-top: 3px solid var(--c-yellow);
+    padding-left: 0;
+    padding-top: 14px;
+    margin: 12px auto;
+  }
+
+  .hero-cta-group {
+    justify-content: center;
+  }
+
+  .hero-stats {
+    justify-content: center;
+  }
+
+  .hero-main-card img {
+    height: 400px;
+  }
+
+  .signature-grid,
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .timeline-row,
+  .promise-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-container {
+    height: 70px;
+  }
+
+  .mobile-nav-toggle {
+    display: block;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: var(--c-blue-dark);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 30px;
+    gap: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    transform: translateY(-150%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--trans-smooth);
+  }
+
+  .nav-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-link {
+    font-size: 18px;
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 12px;
+  }
+
+  .hero-title {
+    font-size: 38px;
+  }
+
+  .section-title {
+    font-size: 30px;
+  }
+
+  .signature-grid,
+  .products-grid,
+  .timeline-row,
+  .promise-grid,
+  .reheat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ingredient-feature-row {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 40px 0;
+  }
+
+  .ingredient-feature-row:nth-child(even) {
+    direction: ltr;
+  }
+
+  .ingredient-img-wrap img {
+    height: 280px;
+  }
+
+  /* 36h 時間軸改為單側呈現 */
+  .timeline-stepper::before {
+    left: 20px;
+  }
+
+  .timeline-step {
+    width: 100%;
+    padding-left: 54px;
+    padding-right: 0;
+    text-align: left !important;
+  }
+
+  .timeline-step:nth-child(even) {
+    left: 0;
+  }
+
+  .timeline-step-dot {
+    left: 8px !important;
+    right: auto !important;
+  }
+
+  .contact-layout-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .story-manifesto-box {
+    padding: 40px 24px;
+  }
+
+  .story-manifesto-box blockquote {
+    font-size: 20px;
+  }
+
+  .cart-drawer {
+    width: 100%;
+    max-width: 100vw;
+  }
+}
