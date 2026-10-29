@@ -1,0 +1,1670 @@
+/* ==========================================================================
+   Line個人智慧AI小幫手 — 日式簡約質感靜態網站樣式表 (Washi & Sumi Aesthetic)
+   ========================================================================== */
+
+:root {
+  /* 和紙與墨色系 (Washi & Sumi Palette) */
+  --bg-washi: #f6f4ee;
+  --bg-washi-deep: #ede9df;
+  --bg-surface: #fdfcfa;
+  --bg-elevated: #ffffff;
+  --bg-code: #1f221f;
+
+  --ink-primary: #1e201d;
+  --ink-secondary: #545650;
+  --ink-muted: #85867f;
+  --ink-light: #b2b1a8;
+
+  /* 抹茶綠與朱印紅點綴 (Matcha & Hanko Vermilion) */
+  --accent-matcha: #3a634c;
+  --accent-matcha-soft: rgba(58, 99, 76, 0.09);
+  --accent-matcha-border: rgba(58, 99, 76, 0.25);
+  --accent-hanko: #b5493a;
+  --accent-hanko-soft: rgba(181, 73, 58, 0.08);
+  --accent-ochre: #9a7442;
+
+  /* 框線與陰影 */
+  --border-hairline: #e2ddd2;
+  --border-strong: #cbc4b6;
+  --shadow-subtle: 0 8px 30px -12px rgba(30, 32, 29, 0.07);
+  --shadow-hover: 0 18px 40px -15px rgba(30, 32, 29, 0.13);
+
+  /* 字體設定 */
+  --font-serif: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  --font-sans: "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+
+  /* 尺寸與動效 */
+  --container-max: 1180px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--bg-washi);
+  color: var(--ink-primary);
+  font-family: var(--font-sans);
+  line-height: 1.75;
+  letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* 細緻和紙紋理疊層 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* ==========================================================================
+   導覽列 (Top Navigation)
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(246, 244, 238, 0.86);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-hairline);
+  transition: box-shadow 0.3s var(--ease-out);
+}
+
+.site-header.scrolled {
+  box-shadow: 0 4px 20px rgba(30, 32, 29, 0.05);
+}
+
+.nav-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 28px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 8px;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+}
+
+.brand-sub {
+  font-size: 0.7rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.08em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.88rem;
+  color: var(--ink-secondary);
+  letter-spacing: 0.06em;
+  position: relative;
+  padding: 4px 0;
+  transition: color 0.25s ease;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1.5px;
+  background-color: var(--accent-matcha);
+  transition: width 0.3s var(--ease-out);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--ink-primary);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 6px;
+}
+
+.mobile-menu-btn span {
+  width: 22px;
+  height: 1.5px;
+  background: var(--ink-primary);
+  transition: 0.25s ease;
+}
+
+/* ==========================================================================
+   主視覺區塊 (Hero Section)
+   ========================================================================== */
+.hero {
+  padding: 88px 0 76px;
+  border-bottom: 1px solid var(--border-hairline);
+  position: relative;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.78rem;
+  color: var(--accent-matcha);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background-color: var(--accent-matcha);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hero-title {
+  margin-bottom: 24px;
+}
+
+.hero-typography-img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-hairline);
+  box-shadow: var(--shadow-subtle);
+  background-color: #faf8f2;
+}
+
+.hero-lead {
+  font-size: 1.02rem;
+  color: var(--ink-secondary);
+  line-height: 1.9;
+  margin-bottom: 32px;
+  max-width: 580px;
+}
+
+.tech-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+.tech-pill {
+  font-size: 0.8rem;
+  padding: 6px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--bg-surface);
+  color: var(--ink-secondary);
+  letter-spacing: 0.03em;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  background-color: var(--ink-primary);
+  color: var(--bg-surface);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  border-radius: var(--radius-sm);
+  transition: background-color 0.25s ease, transform 0.25s var(--ease-out);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-matcha);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 24px;
+  border: 1px solid var(--border-strong);
+  background-color: var(--bg-surface);
+  color: var(--ink-primary);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  border-radius: var(--radius-sm);
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--ink-primary);
+  background-color: var(--bg-washi-deep);
+}
+
+/* 右側和風主視覺展示框 */
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-showcase-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  box-shadow: var(--shadow-subtle);
+  max-width: 390px;
+  width: 100%;
+  position: relative;
+}
+
+.vertical-kanji {
+  position: absolute;
+  right: -34px;
+  top: 16px;
+  writing-mode: vertical-rl;
+  font-family: var(--font-serif);
+  font-size: 0.78rem;
+  letter-spacing: 0.28em;
+  color: var(--ink-muted);
+  user-select: none;
+}
+
+.hero-img-frame {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-hairline);
+  background: #ffffff;
+  cursor: zoom-in;
+}
+
+.hero-img-frame img {
+  width: 100%;
+  height: auto;
+  max-height: 440px;
+  object-fit: contain;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.hero-img-frame:hover img {
+  transform: scale(1.015);
+}
+
+.hero-caption {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  padding-top: 12px;
+  border-top: 1px dashed var(--border-hairline);
+}
+
+.status-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent-matcha);
+  font-weight: 500;
+}
+
+.status-dot::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-matcha);
+}
+
+/* 指標統計列 */
+.metrics-strip {
+  margin-top: 64px;
+  padding-top: 36px;
+  border-top: 1px solid var(--border-hairline);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.metric-item {
+  padding-left: 16px;
+  border-left: 2px solid var(--border-strong);
+}
+
+.metric-num {
+  font-family: var(--font-serif);
+  font-size: 1.65rem;
+  font-weight: 600;
+  color: var(--ink-primary);
+  line-height: 1.2;
+}
+
+.metric-label {
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+
+/* ==========================================================================
+   通用章節標題 (Section Headings)
+   ========================================================================== */
+.section {
+  padding: 92px 0;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.section-alt {
+  background-color: rgba(237, 233, 223, 0.42);
+}
+
+.section-header {
+  max-width: 100%;
+  margin-bottom: 60px;
+}
+
+.section-index {
+  font-family: var(--font-mono);
+  font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+  font-weight: 600;
+  color: var(--accent-hanko);
+  letter-spacing: 0.16em;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.section-index::before {
+  content: "";
+  width: 28px;
+  height: 2px;
+  background-color: var(--accent-hanko);
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.1vw, 2.65rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.32;
+  margin-bottom: 18px;
+  color: var(--ink-primary);
+}
+
+#line-features .section-title,
+#gas-sheets .section-title {
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  #line-features .section-title,
+  #gas-sheets .section-title {
+    white-space: normal;
+  }
+}
+
+.section-desc {
+  max-width: 840px;
+  color: var(--ink-secondary);
+  font-size: 1.04rem;
+  line-height: 1.88;
+}
+
+/* ==========================================================================
+   1・系統架構與雲端運作流向 (System Architecture)
+   ========================================================================== */
+.arch-flow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.arch-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  position: relative;
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+
+.arch-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-subtle);
+  border-color: var(--border-strong);
+}
+
+.arch-step {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--accent-matcha);
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.arch-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.arch-card p {
+  font-size: 0.87rem;
+  color: var(--ink-secondary);
+  line-height: 1.75;
+}
+
+.arch-tag-list {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border-hairline);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.arch-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  background: var(--bg-washi);
+  color: var(--ink-secondary);
+  border-radius: 3px;
+}
+
+/* 工程設計亮點橫幅 */
+.craft-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.craft-box {
+  background: var(--bg-washi);
+  border-left: 3px solid var(--accent-matcha);
+  padding: 18px 20px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.craft-box h4 {
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--ink-primary);
+}
+
+.craft-box p {
+  font-size: 0.83rem;
+  color: var(--ink-secondary);
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   2・前端對話體驗：LINE 多模態實機展示 (Images 01 - 06)
+   ========================================================================== */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+.filter-btn {
+  padding: 8px 18px;
+  font-size: 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-surface);
+  color: var(--ink-secondary);
+  letter-spacing: 0.04em;
+  transition: all 0.25s ease;
+}
+
+.filter-btn:hover {
+  border-color: var(--ink-primary);
+  color: var(--ink-primary);
+}
+
+.filter-btn.active {
+  background: var(--ink-primary);
+  border-color: var(--ink-primary);
+  color: var(--bg-surface);
+}
+
+.chat-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.feature-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), opacity 0.3s ease;
+}
+
+.feature-card.hidden {
+  display: none;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border-strong);
+}
+
+.card-image-stage {
+  background: linear-gradient(180deg, #efede7 0%, #e7e4dc 100%);
+  padding: 20px 20px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid var(--border-hairline);
+  position: relative;
+  cursor: zoom-in;
+}
+
+.card-num-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(253, 252, 250, 0.92);
+  border: 1px solid var(--border-hairline);
+  padding: 2px 9px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-secondary);
+  z-index: 2;
+}
+
+.zoom-hint {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(30, 32, 29, 0.72);
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.card-image-stage:hover .zoom-hint {
+  opacity: 1;
+}
+
+.chat-screenshot {
+  height: 310px;
+  width: 100%;
+  object-fit: contain;
+  border-radius: 6px;
+  filter: drop-shadow(0 6px 14px rgba(30, 32, 29, 0.1));
+  transition: transform 0.4s var(--ease-out);
+}
+
+.card-image-stage:hover .chat-screenshot {
+  transform: scale(1.025);
+}
+
+.file-tag {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ink-muted);
+  text-align: center;
+  word-break: break-all;
+}
+
+.card-body {
+  padding: 22px 24px 26px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-category {
+  font-size: 0.74rem;
+  color: var(--accent-matcha);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+
+.card-title {
+  font-family: var(--font-serif);
+  font-size: 1.14rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.card-desc {
+  font-size: 0.87rem;
+  color: var(--ink-secondary);
+  line-height: 1.78;
+  flex: 1;
+}
+
+.card-meta-footer {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border-hairline);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--ink-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ==========================================================================
+   3・後端雲端帳本：Google Apps Script × Sheets 四大資料庫 (Images 07 - 10)
+   ========================================================================== */
+.sheets-interactive-wrap {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-subtle);
+  margin-bottom: 36px;
+}
+
+.sheets-topbar {
+  background: var(--bg-washi-deep);
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--border-hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.window-dots {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.window-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border-strong);
+}
+
+.window-title {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-secondary);
+}
+
+.sheet-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.sheet-tab-btn {
+  padding: 7px 16px;
+  font-size: 0.84rem;
+  border-radius: var(--radius-sm);
+  color: var(--ink-secondary);
+  background: transparent;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.sheet-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.65);
+  color: var(--ink-primary);
+}
+
+.sheet-tab-btn.active {
+  background: var(--bg-surface);
+  color: var(--accent-matcha);
+  border-color: var(--border-hairline);
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(30, 32, 29, 0.05);
+}
+
+.sheet-panel {
+  display: none;
+  padding: 28px;
+}
+
+.sheet-panel.active {
+  display: block;
+  animation: fadeIn 0.35s var(--ease-out);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sheet-panel-layout {
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.sheet-img-box {
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #ffffff;
+  cursor: zoom-in;
+  position: relative;
+}
+
+.sheet-img-box img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.4s var(--ease-out);
+}
+
+.sheet-img-box:hover img {
+  transform: scale(1.015);
+}
+
+.sheet-info h3 {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  margin-bottom: 10px;
+}
+
+.sheet-filename {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--accent-matcha);
+  background: var(--accent-matcha-soft);
+  padding: 3px 10px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+}
+
+.sheet-info p {
+  font-size: 0.92rem;
+  color: var(--ink-secondary);
+  line-height: 1.82;
+  margin-bottom: 20px;
+}
+
+.schema-box {
+  background: var(--bg-washi);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+}
+
+.schema-label {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  margin-bottom: 8px;
+  letter-spacing: 0.08em;
+}
+
+.schema-cols {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.schema-col {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  padding: 3px 9px;
+  border-radius: 3px;
+  color: var(--ink-primary);
+}
+
+/* 四張 GAS 總覽縮圖列 (確保 10 張圖皆可一覽無遺) */
+.sheets-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.sheet-mini-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-out);
+}
+
+.sheet-mini-card:hover,
+.sheet-mini-card.active {
+  border-color: var(--accent-matcha);
+  box-shadow: var(--shadow-subtle);
+  transform: translateY(-2px);
+}
+
+.sheet-mini-card img {
+  width: 100%;
+  height: 112px;
+  object-fit: cover;
+  object-position: left top;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-hairline);
+  margin-bottom: 10px;
+}
+
+.sheet-mini-title {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--ink-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sheet-mini-sub {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ink-muted);
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   頁尾 (Footer)
+   ========================================================================== */
+.site-footer {
+  padding: 56px 0;
+  background: var(--bg-washi-deep);
+  color: var(--ink-secondary);
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footer-title {
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  color: var(--ink-primary);
+  margin-bottom: 6px;
+}
+
+.footer-meta {
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+}
+
+/* ==========================================================================
+   全螢幕圖片檢視燈箱 (Lightbox Modal)
+   ========================================================================== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(24, 25, 23, 0.88);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+}
+
+.lightbox.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-content {
+  max-width: 1020px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.lightbox-img {
+  max-height: 78vh;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  background: #fff;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.lightbox-caption-bar {
+  margin-top: 16px;
+  text-align: center;
+  color: #f4f2ec;
+  max-width: 680px;
+}
+
+.lightbox-caption-title {
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  margin-bottom: 4px;
+}
+
+.lightbox-caption-sub {
+  font-size: 0.84rem;
+  color: #c7c4ba;
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 24px;
+  right: 28px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  font-size: 1.3rem;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s ease;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.lightbox-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  font-size: 1.2rem;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s ease;
+}
+
+.lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.lightbox-prev {
+  left: 24px;
+}
+
+.lightbox-next {
+  right: 24px;
+}
+
+/* 進場動畫 */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   響應式設計 (Responsive Design)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .vertical-kanji {
+    display: none;
+  }
+
+  .arch-flow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .chat-gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sheet-panel-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sheets-overview-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .nav-links {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: var(--bg-surface);
+    flex-direction: column;
+    padding: 20px 28px;
+    gap: 16px;
+    border-bottom: 1px solid var(--border-strong);
+    display: none;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .hero {
+    padding: 52px 0 56px;
+  }
+
+  .metrics-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .arch-flow,
+  .craft-highlights,
+  .chat-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: 64px 0;
+  }
+
+  .lightbox-nav {
+    bottom: 20px;
+    top: auto;
+    transform: none;
+  }
+
+  .lightbox-prev {
+    left: calc(50% - 58px);
+  }
+
+  .lightbox-next {
+    right: calc(50% - 58px);
+  }
+}
+
+
+/* ==========================================================================
+   【方案三：京都茶室・大地木質與深林色塊交替 (Kyoto Tea-Room & Earth Gallery)】
+   柿子橘 × 青磁綠 × 焙茶木質 × 深抹茶畫框，以大面積區塊色溫交替營造精品畫冊感
+   ========================================================================== */
+body[data-theme="kyoto"] {
+  --ky-persimmon: #c95f34;       /* 柿子橘：主按鈕、重點指標、焦點徽章 */
+  --ky-persimmon-dark: #aa4a23;
+  --ky-persimmon-bg: #fbece5;
+  --ky-persimmon-border: #ebbfa9;
+
+  --ky-celadon: #3c7a70;         /* 青磁綠：陶器溫潤青綠、標籤與次色塊 */
+  --ky-celadon-bg: #e3f0ed;
+  --ky-celadon-border: #b3d6cf;
+
+  --ky-hojicha: #73553d;         /* 焙茶棕：木質邊框、溫潤大地中性色 */
+  --ky-hojicha-bg: #f3e9dd;
+  --ky-hojicha-border: #d5bfa6;
+
+  --ky-matcha-deep: #21392d;     /* 深森林抹茶：試算表畫框與沉穩對比 */
+  --ky-matcha-mid: #2f5241;
+
+  background-color: #faf5ed;
+  color: #26201b;
+}
+
+/* 導覽列：檜木暖米底 ＋ 柿橘・焙茶・青磁・深抹茶 頂部工藝飾線 */
+body[data-theme="kyoto"] .site-header {
+  background: rgba(250, 245, 237, 0.9);
+  border-bottom-color: #dfd2c0;
+}
+
+body[data-theme="kyoto"] .site-header::before {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--ky-persimmon) 0%,
+    var(--ky-hojicha) 35%,
+    var(--ky-celadon) 70%,
+    var(--ky-matcha-deep) 100%
+  );
+}
+
+body[data-theme="kyoto"] .nav-links a::after {
+  background-color: var(--ky-persimmon);
+  height: 2px;
+}
+
+/* 主視覺區：暖杏和紙色塊 (色塊 1) */
+body[data-theme="kyoto"] .hero {
+  background:
+    radial-gradient(circle at 82% 24%, rgba(201, 95, 52, 0.09) 0%, transparent 44%),
+    radial-gradient(circle at 15% 75%, rgba(60, 122, 112, 0.08) 0%, transparent 42%),
+    linear-gradient(180deg, #fbf7f0 0%, #f3eadc 100%);
+  border-bottom-color: #dccbb5;
+}
+
+body[data-theme="kyoto"] .eyebrow {
+  color: var(--ky-persimmon-dark);
+  background: var(--ky-persimmon-bg);
+  border: 1px solid var(--ky-persimmon-border);
+  padding: 5px 14px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+body[data-theme="kyoto"] .eyebrow::before {
+  background-color: var(--ky-persimmon);
+  width: 16px;
+}
+
+body[data-theme="kyoto"] .hero-typography-img {
+  border: 1px solid #d8c6b0;
+  box-shadow: 0 16px 36px -14px rgba(89, 64, 45, 0.18);
+}
+
+body[data-theme="kyoto"] .hero-lead {
+  color: #54473c;
+}
+
+body[data-theme="kyoto"] .tech-pills .tech-pill {
+  background: #fffdf9;
+  border-color: #d6c3ad;
+  color: var(--ky-hojicha);
+  font-weight: 500;
+}
+
+body[data-theme="kyoto"] .tech-pills .tech-pill:nth-child(odd) {
+  background: var(--ky-celadon-bg);
+  border-color: var(--ky-celadon-border);
+  color: #2b5e55;
+}
+
+/* 柿子橘溫暖主按鈕 */
+body[data-theme="kyoto"] .btn-primary {
+  background: linear-gradient(135deg, #cf6438 0%, #b34d24 100%);
+  color: #fffdf9;
+  box-shadow: 0 10px 24px -8px rgba(201, 95, 52, 0.45);
+}
+
+body[data-theme="kyoto"] .btn-primary:hover {
+  background: linear-gradient(135deg, #ba542a 0%, #993e1a 100%);
+  box-shadow: 0 14px 28px -8px rgba(201, 95, 52, 0.55);
+}
+
+body[data-theme="kyoto"] .btn-secondary {
+  background: #fffdf9;
+  border-color: #cbb59c;
+  color: #4a3a2c;
+}
+
+body[data-theme="kyoto"] .btn-secondary:hover {
+  background: var(--ky-hojicha-bg);
+  border-color: var(--ky-hojicha);
+}
+
+/* 右側木質暖框展示卡 */
+body[data-theme="kyoto"] .hero-showcase-card {
+  background: #fffdf9;
+  border: 1px solid #d4bfa6;
+  box-shadow: 0 22px 44px -18px rgba(74, 54, 36, 0.2);
+}
+
+body[data-theme="kyoto"] .vertical-kanji {
+  color: var(--ky-hojicha);
+}
+
+body[data-theme="kyoto"] .status-dot {
+  color: var(--ky-persimmon-dark);
+}
+body[data-theme="kyoto"] .status-dot::before {
+  background: var(--ky-persimmon);
+}
+
+/* 指標統計：柿子橘與青磁綠交替強調 */
+body[data-theme="kyoto"] .metrics-strip {
+  border-top-color: #d9c8b4;
+}
+
+body[data-theme="kyoto"] .metric-item {
+  background: rgba(255, 253, 249, 0.78);
+  padding: 16px 20px;
+  border-radius: 6px;
+  border: 1px solid #dfd0be;
+  border-left: 4px solid var(--ky-persimmon);
+}
+
+body[data-theme="kyoto"] .metric-item:nth-child(2),
+body[data-theme="kyoto"] .metric-item:nth-child(4) {
+  border-left-color: var(--ky-celadon);
+}
+
+body[data-theme="kyoto"] .metric-num {
+  color: var(--ky-persimmon-dark);
+}
+
+body[data-theme="kyoto"] .metric-item:nth-child(2) .metric-num,
+body[data-theme="kyoto"] .metric-item:nth-child(4) .metric-num {
+  color: #2b5e55;
+}
+
+/* ==========================================================================
+   章節 1（色塊 2 — 溫潤亞麻焙茶米）：厚實大地色塊與木質鑲邊卡片
+   ========================================================================== */
+body[data-theme="kyoto"] #architecture {
+  background: linear-gradient(180deg, #ede1d0 0%, #e6d7c3 100%);
+  border-bottom: 1px solid #d2bfa7;
+}
+
+body[data-theme="kyoto"] #architecture .section-index {
+  color: var(--ky-persimmon-dark);
+}
+body[data-theme="kyoto"] #architecture .section-index::before {
+  background-color: var(--ky-persimmon-dark);
+}
+
+body[data-theme="kyoto"] #architecture .section-desc {
+  color: #4f4136;
+}
+
+body[data-theme="kyoto"] .arch-card {
+  background: #fffdf9;
+  border: 1px solid #d8c6b0;
+  border-top: 4px solid var(--ky-hojicha);
+  box-shadow: 0 12px 28px -16px rgba(68, 48, 32, 0.18);
+}
+
+body[data-theme="kyoto"] .arch-card:nth-child(1) {
+  border-top-color: var(--ky-matcha-mid);
+}
+body[data-theme="kyoto"] .arch-card:nth-child(2) {
+  border-top-color: var(--ky-hojicha);
+}
+body[data-theme="kyoto"] .arch-card:nth-child(3) {
+  border-top-color: var(--ky-persimmon);
+}
+body[data-theme="kyoto"] .arch-card:nth-child(4) {
+  border-top-color: var(--ky-celadon);
+}
+
+body[data-theme="kyoto"] .arch-step {
+  color: var(--ky-persimmon-dark);
+  font-weight: 600;
+}
+
+body[data-theme="kyoto"] .arch-tag {
+  background: #f4ece1;
+  color: #5c4634;
+  border: 1px solid #e4d5c3;
+}
+
+/* 工程亮點改用深森林抹茶小卡襯托對比 */
+body[data-theme="kyoto"] .craft-box {
+  background: var(--ky-matcha-deep);
+  border-left: 4px solid var(--ky-persimmon);
+  border-radius: 6px;
+  padding: 20px 22px;
+  box-shadow: 0 12px 26px -14px rgba(25, 43, 34, 0.35);
+}
+
+body[data-theme="kyoto"] .craft-box:nth-child(2) {
+  border-left-color: #6ab5a8;
+}
+
+body[data-theme="kyoto"] .craft-box:nth-child(3) {
+  border-left-color: #e0a458;
+}
+
+body[data-theme="kyoto"] .craft-box h4 {
+  color: #f7f2ea;
+}
+
+body[data-theme="kyoto"] .craft-box p {
+  color: #cedbd3;
+}
+
+body[data-theme="kyoto"] .craft-box code {
+  background: rgba(255, 255, 255, 0.12);
+  color: #f8c69c;
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+/* ==========================================================================
+   章節 2（色塊 3 — 淡青磁灰綠畫廊）：沉靜青磁背景襯托暖白卡片
+   ========================================================================== */
+body[data-theme="kyoto"] #line-features {
+  background: linear-gradient(180deg, #e2ece9 0%, #dae6e2 100%);
+  border-bottom: 1px solid #c2d4ce;
+}
+
+body[data-theme="kyoto"] #line-features .section-index {
+  color: #265950;
+}
+body[data-theme="kyoto"] #line-features .section-index::before {
+  background-color: #265950;
+}
+
+body[data-theme="kyoto"] #line-features .section-desc {
+  color: #364944;
+}
+
+body[data-theme="kyoto"] .filter-btn {
+  background: #fbfaf7;
+  border-color: #b7ccc6;
+  color: #354b45;
+}
+
+body[data-theme="kyoto"] .filter-btn.active {
+  background: var(--ky-matcha-deep);
+  border-color: var(--ky-matcha-deep);
+  color: #fbf8f2;
+  box-shadow: 0 6px 16px -4px rgba(33, 57, 45, 0.35);
+}
+
+body[data-theme="kyoto"] .feature-card {
+  background: #fffdf9;
+  border-color: #c8d8d3;
+  box-shadow: 0 12px 28px -14px rgba(33, 57, 45, 0.14);
+}
+
+/* 截圖背板以「暖沙杏色 / 青磁霧綠 / 柿粉暖陶」三色溫潤交錯 */
+body[data-theme="kyoto"] .feature-card:nth-child(3n + 1) .card-image-stage {
+  background: linear-gradient(180deg, #f5ead9 0%, #ead8be 100%);
+}
+body[data-theme="kyoto"] .feature-card:nth-child(3n + 2) .card-image-stage {
+  background: linear-gradient(180deg, #f7e6de 0%, #edd1c4 100%);
+}
+body[data-theme="kyoto"] .feature-card:nth-child(3n + 3) .card-image-stage {
+  background: linear-gradient(180deg, #dfeeeb 0%, #cbe2dd 100%);
+}
+
+body[data-theme="kyoto"] .card-num-badge {
+  background: var(--ky-matcha-deep);
+  color: #f8f4ec;
+  border-color: var(--ky-matcha-deep);
+}
+
+body[data-theme="kyoto"] .feature-card:nth-child(odd) .card-num-badge {
+  background: var(--ky-persimmon);
+  border-color: var(--ky-persimmon);
+}
+
+body[data-theme="kyoto"] .card-category {
+  color: var(--ky-persimmon-dark);
+}
+
+body[data-theme="kyoto"] .feature-card:nth-child(even) .card-category {
+  color: #2b5e55;
+}
+
+body[data-theme="kyoto"] p code {
+  background: #f2e8dc;
+  color: #8c4120;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.84em;
+}
+
+/* ==========================================================================
+   章節 3（方案三核心亮點 — 深抹茶畫框襯托白色試算表）：美術館裱框質感
+   ========================================================================== */
+body[data-theme="kyoto"] #gas-sheets {
+  background: linear-gradient(180deg, #f6efe4 0%, #efe5d6 100%);
+}
+
+body[data-theme="kyoto"] #gas-sheets .section-index {
+  color: var(--ky-hojicha);
+}
+body[data-theme="kyoto"] #gas-sheets .section-index::before {
+  background-color: var(--ky-hojicha);
+}
+
+/* 深森林抹茶畫框 */
+body[data-theme="kyoto"] .sheets-interactive-wrap {
+  background: var(--ky-matcha-deep);
+  border: 2px solid #182b21;
+  box-shadow: 0 26px 56px -20px rgba(24, 43, 33, 0.45);
+}
+
+body[data-theme="kyoto"] .sheets-topbar {
+  background: #182b21;
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+body[data-theme="kyoto"] .window-dots span:nth-child(1) {
+  background: var(--ky-persimmon);
+}
+body[data-theme="kyoto"] .window-dots span:nth-child(2) {
+  background: #d9a04e;
+}
+body[data-theme="kyoto"] .window-dots span:nth-child(3) {
+  background: #5ca396;
+}
+
+body[data-theme="kyoto"] .window-title {
+  color: #e4ece7;
+}
+
+body[data-theme="kyoto"] .sheet-tab-btn {
+  color: #b8cbc1;
+}
+
+body[data-theme="kyoto"] .sheet-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+body[data-theme="kyoto"] .sheet-tab-btn.active {
+  background: var(--ky-persimmon);
+  color: #fffdf9;
+  border-color: var(--ky-persimmon);
+}
+
+body[data-theme="kyoto"] .sheet-img-box {
+  border: 3px solid #e6dccb;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.32);
+}
+
+body[data-theme="kyoto"] .sheet-info h3 {
+  color: #faf6ef;
+}
+
+body[data-theme="kyoto"] .sheet-filename {
+  background: rgba(201, 95, 52, 0.25);
+  color: #ffbfa6;
+  border: 1px solid rgba(235, 191, 169, 0.3);
+}
+
+body[data-theme="kyoto"] .sheet-info p {
+  color: #d4e0d9;
+}
+
+body[data-theme="kyoto"] .sheet-info p code {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffd3b6;
+}
+
+body[data-theme="kyoto"] .schema-box {
+  background: rgba(15, 28, 21, 0.55);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+body[data-theme="kyoto"] .schema-label {
+  color: #a8bfb3;
+}
+
+body[data-theme="kyoto"] .schema-col {
+  background: rgba(255, 253, 249, 0.1);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #f3efe8;
+}
+
+/* 下方四張縮圖卡：焙茶木框與柿子橘選中態 */
+body[data-theme="kyoto"] .sheet-mini-card {
+  background: #fffdf9;
+  border-color: #d5c3ad;
+}
+
+body[data-theme="kyoto"] .sheet-mini-card.active {
+  border-color: var(--ky-persimmon);
+  background: var(--ky-persimmon-bg);
+  box-shadow: 0 12px 26px -12px rgba(201, 95, 52, 0.3);
+}
+
+/* 深焙茶木質頁尾 */
+body[data-theme="kyoto"] .site-footer {
+  background: #221b16;
+  color: #cbbba8;
+  border-top: 3px solid var(--ky-persimmon);
+}
+
+body[data-theme="kyoto"] .footer-title {
+  color: #f8f2ea;
+}
+
+body[data-theme="kyoto"] .footer-meta {
+  color: #a89682;
+}

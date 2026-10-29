@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Line個人智慧AI小幫手｜個人免伺服器雲端智慧管家系統</title>
+  <meta name="description" content="整合 LINE Messaging API、Google Apps Script 與 Gemini 多模態 AI，打造零伺服器維運成本的個人雲端智慧管家系統。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+
+  <!-- 頂部導覽列 -->
+  <header class="site-header" id="siteHeader">
+    <nav class="nav-inner" aria-label="主要導覽">
+      <a href="#top" class="brand">
+        <img
+          class="brand-logo"
+          src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg?utm_source=zh.wikipedia.org&amp;utm_campaign=index&amp;utm_content=original"
+          alt="LINE 官方圖示"
+        />
+        <div class="brand-text">
+          <span class="brand-title">Line個人智慧AI小幫手</span>
+          <span class="brand-sub">SERVERLESS CLOUD BUTLER</span>
+        </div>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#architecture">系統架構</a></li>
+        <li><a href="#line-features">多模態互動 (01–06)</a></li>
+        <li><a href="#gas-sheets">雲端資料中樞 (07–10)</a></li>
+      </ul>
+
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="切換選單">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- 主視覺區塊 -->
+  <main id="top">
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-copy reveal">
+            <span class="eyebrow">LINE Messaging API × Google Apps Script × Gemini AI</span>
+            <h1 class="hero-title">
+              <span class="sr-only">日常的一句話、一張照片，化為井然有序的雲端生活帳本。</span>
+              <img
+                class="hero-typography-img"
+                src="./hero_typography.jpg"
+                alt="日常的一句話、一張照片，化為井然有序的雲端生活帳本。"
+              />
+            </h1>
+            <p class="hero-lead">
+              「Line個人智慧AI小幫手」是一套個人免伺服器（Serverless）雲端智慧管家系統。不需租用主機、零月租維運負擔，直接以最熟悉的 LINE 聊天室為入口，透過 Gemini Flash 多模態模型自動理解文字、名片發票影像與隨手語音，即時歸檔至 Google Sheets 並雙向連動行事曆與通訊錄。
+            </p>
+
+            <div class="tech-pills">
+              <span class="tech-pill">Gemini 3.8 / 3.5 Flash 多模態梯隊</span>
+              <span class="tech-pill">LINE Reply + Push 雙軌秒回</span>
+              <span class="tech-pill">Google Calendar &amp; People 同步</span>
+              <span class="tech-pill">Google Sheets 四大結構化帳本</span>
+            </div>
+
+            <div class="hero-actions">
+              <a href="#line-features" class="btn-primary">瀏覽 10 大實機功能圖鑑 →</a>
+              <a href="#architecture" class="btn-secondary">了解免伺服器架構</a>
+            </div>
+          </div>
+
+          <div class="hero-visual reveal">
+            <div class="hero-showcase-card">
+              <span class="vertical-kanji">無伺服器・雲端日常美學</span>
+              <div class="hero-img-frame" data-lightbox-index="0" role="button" tabindex="0" aria-label="放大檢視每日早安重點截圖">
+                <img src="./01_每日早安重點.jpg" alt="01_每日早安重點：Line個人智慧AI小幫手每日早晨自動彙整今日行程與待辦清單" />
+              </div>
+              <div class="hero-caption">
+                <span class="status-dot">定時排程主動推播</span>
+                <span>01_每日早安重點.jpg</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 核心指標 -->
+        <div class="metrics-strip reveal">
+          <div class="metric-item">
+            <div class="metric-num">$0 / 月</div>
+            <div class="metric-label">純 GAS 免伺服器雲端託管架構</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-num">3 種模態</div>
+            <div class="metric-label">支援文字訊息・影像辨識・語音聽寫</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-num">5 大分流</div>
+            <div class="metric-label">聯絡人・行事曆・記帳・雜事・AI 諮詢</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-num">雙軌防護</div>
+            <div class="metric-label">Reply 秒回動畫 + Push 推播保底送達</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1・系統架構 -->
+    <section class="section" id="architecture">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-index">1 — ARCHITECTURE</span>
+          <h2 class="section-title">四大核心串聯，無縫運轉的雲端管家管線</h2>
+          <p class="section-desc">
+            從手機發出 LINE 訊息的那一刻起，系統在毫秒間完成簽章驗證、即時接收回饋、多模態語意結構化解析，並安全寫入個人 Google Workspace 生態系。
+          </p>
+        </div>
+
+        <div class="arch-flow">
+          <article class="arch-card reveal">
+            <div class="arch-step"><span>STEP 01</span><span>ENTRY</span></div>
+            <h3>LINE Messaging API</h3>
+            <p>
+              透過 Webhook 接收文字、照片與錄音。第一時間以 <code>Reply API</code> 秒回接收提示並啟動官方「輸入中…」小圓點動畫，消除等待焦慮；並以 HMAC-SHA256 驗證數位簽章防止偽造請求。
+            </p>
+            <div class="arch-tag-list">
+              <span class="arch-tag">doPost Webhook</span>
+              <span class="arch-tag">Loading Animation</span>
+              <span class="arch-tag">Push 保底機制</span>
+            </div>
+          </article>
+
+          <article class="arch-card reveal">
+            <div class="arch-step"><span>STEP 02</span><span>SERVERLESS</span></div>
+            <h3>Google Apps Script</h3>
+            <p>
+              扮演免伺服器核心調度中樞。機敏 Token 與金鑰全數存放於 <code>PropertiesService</code> 杜絕硬編碼；結合 <code>CacheService</code> 實現 5 分鐘分類鎖定與上一筆紀錄撤回／改存記憶。
+            </p>
+            <div class="arch-tag-list">
+              <span class="arch-tag">PropertiesService</span>
+              <span class="arch-tag">CacheService</span>
+              <span class="arch-tag">時間排程觸發</span>
+            </div>
+          </article>
+
+          <article class="arch-card reveal">
+            <div class="arch-step"><span>STEP 03</span><span>INTELLIGENCE</span></div>
+            <h3>Gemini 多模態模型梯隊</h3>
+            <p>
+              採用高配額 Flash 家族（<code>gemini-3.5-flash</code> / <code>gemini-3.8-flash</code>）建立容錯備援梯隊，遇尖峰 429/503 自動延遲切換；圖片超過 1MB 自動 JPEG 輕量化，強制輸出純 JSON 結構。
+            </p>
+            <div class="arch-tag-list">
+              <span class="arch-tag">Vision 視覺辨識</span>
+              <span class="arch-tag">Audio 語音轉錄</span>
+              <span class="arch-tag">JSON Schema</span>
+            </div>
+          </article>
+
+          <article class="arch-card reveal">
+            <div class="arch-step"><span>STEP 04</span><span>WORKSPACE</span></div>
+            <h3>Google 雲端生態同步</h3>
+            <p>
+              依 AI 判定結果自動寫入 Google Sheets 四大專屬分頁，並同步呼叫 <code>CalendarApp</code> 建立日曆行程、<code>People API</code> 新增手機聯絡人，最後透過 Push API 回報歸檔結果。
+            </p>
+            <div class="arch-tag-list">
+              <span class="arch-tag">Google Sheets</span>
+              <span class="arch-tag">Google Calendar</span>
+              <span class="arch-tag">Google Contacts</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="craft-highlights reveal">
+          <div class="craft-box">
+            <h4>突破 25 秒限制的雙軌回覆設計</h4>
+            <p>高解析照片或語音轉錄偶爾耗時較長，系統先用免費 Reply Token 秒回「解析中」狀態，待後台完成歸檔後自動改由 Push API 推播最終結果，確保訊息 100% 不漏接。</p>
+          </div>
+          <div class="craft-box">
+            <h4>國際電話國碼防公式誤判保護</h4>
+            <p>名片常見 <code>+886</code> 開頭電話，直接寫入試算表易被誤判為數學公式而產生 <code>#ERROR!</code>。系統自動前綴單引號安全轉義，同時保留原生格式同步至 Google 聯絡人。</p>
+          </div>
+          <div class="craft-box">
+            <h4>高彈性容錯與無痛事後修正</h4>
+            <p>若 AI 自動分類與預期不同，無須打開試算表修改，直接在聊天室輸入「<code>改存 行事曆</code>」或「<code>/undo</code>」，即可一鍵撤銷重分類並維持資料表整潔。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2・前端對話體驗 (圖片 01 - 06) -->
+    <section class="section section-alt" id="line-features">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-index">2 — MULTIMODAL INTERACTION (01–06)</span>
+          <h2 class="section-title">直覺如日常對話：LINE 多模態智慧互動實錄</h2>
+          <p class="section-desc">
+            無須學習複雜介面，不論是清晨的自動行程推播、隨手輸入的待辦備忘、紙本名片與各式發票拍照，甚至是隨口錄製的一段語音，皆能在聊天室中優雅完成。（點擊任一圖片可放大檢視細節）
+          </p>
+        </div>
+
+        <!-- 分類篩選器 -->
+        <div class="filter-bar reveal" role="tablist" aria-label="功能分類篩選">
+          <button class="filter-btn active" data-filter="all">全部展示 (6)</button>
+          <button class="filter-btn" data-filter="text">排程晨報與文字備忘 (2)</button>
+          <button class="filter-btn" data-filter="vision">AI 圖像辨識：名片與發票 (3)</button>
+          <button class="filter-btn" data-filter="audio">AI 語音辨識互動 (1)</button>
+        </div>
+
+        <div class="chat-gallery-grid">
+          <!-- 01_每日早安重點.jpg -->
+          <article class="feature-card reveal" data-category="text">
+            <div class="card-image-stage" data-lightbox-index="0" role="button" tabindex="0" aria-label="放大檢視 01_每日早安重點.jpg">
+              <span class="card-num-badge">01</span>
+              <span class="zoom-hint">點擊放大</span>
+              <img class="chat-screenshot" src="./01_每日早安重點.jpg" alt="01_每日早安重點" loading="lazy" />
+              <span class="file-tag">01_每日早安重點.jpg</span>
+            </div>
+            <div class="card-body">
+              <span class="card-category">MORNING BRIEFING ・ 定時排程推播</span>
+              <h3 class="card-title">每日早安重點晨報</h3>
+              <p class="card-desc">
+                透過時間觸發器每日早晨自動執行 <code>sendDailyMorningBriefing()</code>，自動讀取當日 Google 行事曆既定會議行程，並撈取試算表「生活雜事」中狀態仍為「待辦」的事項，彙整成清爽易讀的早安重點主動推播至 LINE。
+              </p>
+              <div class="card-meta-footer">
+                <span>CalendarApp + Sheets</span>
+                <span>主動 Push 推播</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 02_備忘記事.jpg -->
+          <article class="feature-card reveal" data-category="text">
+            <div class="card-image-stage" data-lightbox-index="1" role="button" tabindex="0" aria-label="放大檢視 02_備忘記事.jpg">
+              <span class="card-num-badge">02</span>
+              <span class="zoom-hint">點擊放大</span>
+              <img class="chat-screenshot" src="./02_備忘記事.jpg" alt="02_備忘記事" loading="lazy" />
+              <span class="file-tag">02_備忘記事.jpg</span>
+            </div>
+            <div class="card-body">
+              <span class="card-category">QUICK MEMO ・ 秒回提示與備忘歸檔</span>
+              <h3 class="card-title">隨手文字備忘記事</h3>
+              <p class="card-desc">
+                傳送「記得回老家帶工具修濾水器」，系統第一時間秒回「收到傳送資訊，正在交由 AI 解析中…」消除等待感，後台自動提煉主旨「回老家修濾水器」存入生活雜事待辦；事後只需輸入 <code>已完成 修濾水器</code> 即可核銷。
+              </p>
+              <div class="card-meta-footer">
+                <span>handleMemoEntry()</span>
+                <span>分類：生活雜事</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 03_AI圖像辨識-名片掃描.jpg -->
+          <article class="feature-card reveal" data-category="vision">
+            <div class="card-image-stage" data-lightbox-index="2" role="button" tabindex="0" aria-label="放大檢視 03_AI圖像辨識-名片掃描.jpg">
+              <span class="card-num-badge">03</span>
+              <span class="zoom-hint">點擊放大</span>
+              <img class="chat-screenshot" src="./03_AI圖像辨識-名片掃描.jpg" alt="03_AI圖像辨識-名片掃描" loading="lazy" />
+              <span class="file-tag">03_AI圖像辨識-名片掃描.jpg</span>
+            </div>
+            <div class="card-body">
+              <span class="card-category">VISION OCR ・ 名片智慧建檔</span>
+              <h3 class="card-title">AI 圖像辨識：名片掃描同步</h3>
+              <p class="card-desc">
+                隨手拍攝商務名片傳入聊天室，Gemini 視覺模型自動辨識中英文姓名、分機電話（<code>+886-37-871801 #2666</code>）、Email、公司部門職稱與地址備註，寫入試算表的同時透過 <code>People API</code> 直接同步至 Google 聯絡人。
+              </p>
+              <div class="card-meta-footer">
+                <span>People.createContact()</span>
+                <span>分類：聯絡人</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 04_AI圖像辨識-發票記帳_長條式.jpg -->
+          <article class="feature-card reveal" data-category="vision">
+            <div class="card-image-stage" data-lightbox-index="3" role="button" tabindex="0" aria-label="放大檢視 04_AI圖像辨識-發票記帳_長條式.jpg">
+              <span class="card-num-badge">04</span>
+              <span class="zoom-hint">點擊放大</span>
+              <img class="chat-screenshot" src="./04_AI圖像辨識-發票記帳_長條式.jpg" alt="04_AI圖像辨識-發票記帳_長條式" loading="lazy" />
+              <span class="file-tag">04_AI圖像辨識-發票記帳_長條式.jpg</span>
+            </div>
+            <div class="card-body">
+              <span class="card-category">VISION ACCOUNTING ・ 傳統收據解析</span>
+              <h3 class="card-title">AI 圖像辨識：長條式發票記帳</h3>
+              <p class="card-desc">
+                面對餐飲店常見的細長型傳統收據（如哈赤拉麵），即使版面狹長、印章重疊，AI 依然能精準辨識消費類型為「支出（飲食）」、項目「餐費」、總計金額 900 元，並將店家名稱與發票號碼 <code>EF90653760</code> 完整寫入備註。
+              </p>
+              <div class="card-meta-footer">
+                <span>handleAccountingEntry()</span>
+                <span>分類：記帳本</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 05_AI圖像辨識-發票記帳_感熱式.jpg -->
+          <article class="feature-card reveal" data-category="vision">
+            <div class="card-image-stage" data-lightbox-index="4" role="button" tabindex="0" aria-label="放大檢視 05_AI圖像辨識-發票記帳_感熱式.jpg">
+              <span class="card-num-badge">05</span>
+              <span class="zoom-hint">點擊放大</span>
+              <img class="chat-screenshot" src="./05_AI圖像辨識-發票記帳_感熱式.jpg" alt="05_AI圖像辨識-發票記帳_感熱式" loading="lazy" />
+              <span class="file-tag">05_AI圖像辨識-發票記帳_感熱式.jpg</span>
+            </div>
+            <div class="card-body">
+              <span class="card-category">VISION ACCOUNTING ・ 電子發票證明聯</span>
+              <h3 class="card-title">AI 圖像辨識：感熱式電子發票記帳</h3>
+              <p class="card-desc">
+                針對台灣日常最普及的感熱紙電子發票證明聯（含雙 QR Code 規格），拍下即可自動擷取賣方名稱（詠碩實業）、消費金額 2,480 元、自動歸入「購物」支出，並連同字軌號碼 <code>DS-91816111</code> 與精確交易時間一併建檔。
+              </p>
+              <div class="card-meta-footer">
+                <span>optimizeImageBlob()</span>
+                <span>分類：記帳本</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 06_AI語音辨識-講個笑話.jpg -->
+          <article class="feature-card reveal" data-category="audio">
+            <div class="card-image-stage" data-lightbox-index="5" role="button" tabindex="0" aria-label="放大檢視 06_AI語音辨識-講個笑話.jpg">
+              <span class="card-num-badge">06</span>
+              <span class="zoom-hint">點擊放大</span>
+              <img class="chat-screenshot" src="./06_AI語音辨識-講個笑話.jpg" alt="06_AI語音辨識-講個笑話" loading="lazy" />
+              <span class="file-tag">06_AI語音辨識-講個笑話.jpg</span>
+            </div>
+            <div class="card-body">
+              <span class="card-category">AUDIO MULTIMODAL ・ 語音轉錄與智慧問答</span>
+              <h3 class="card-title">AI 語音辨識：隨口錄音與機智互動</h3>
+              <p class="card-desc">
+                不便打字時只需按住 LINE 麥克風錄音（<code>audio/mp4</code>），系統自動下載音訊交由 Gemini 聆聽轉錄，先附上「語音辨識逐字摘要」方便核對，再依語意自動歸檔行程記帳，或如圖所示化身機智顧問提供得體幽默的破冰笑話。
+              </p>
+              <div class="card-meta-footer">
+                <span>Audio Multimodal</span>
+                <span>分類：AI 諮詢 / 自動分流</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3・後端雲端帳本：Google Sheets 四大資料庫 (圖片 07 - 10) -->
+    <section class="section" id="gas-sheets">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-index">3 — GOOGLE WORKSPACE BACKEND (07–10)</span>
+          <h2 class="section-title">透明可控的個人資料主權：Google Sheets 四大結構化分頁</h2>
+          <p class="section-desc">
+            所有經過 AI 萃取的資訊，最終皆以乾淨嚴謹的欄位結構落盤於您個人的 Google 試算表中。不綁定封閉第三方資料庫，隨時可檢視、篩選、匯出報表，並與 Google 日曆及聯絡人無縫同步。
+          </p>
+        </div>
+
+        <!-- 互動式試算表分頁視窗 -->
+        <div class="sheets-interactive-wrap reveal">
+          <div class="sheets-topbar">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div class="window-dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <span class="window-title">Line個人智慧AI小幫手 — Google Sheets 雲端中樞</span>
+            </div>
+
+            <div class="sheet-tabs" role="tablist" aria-label="試算表分頁切換">
+              <button class="sheet-tab-btn active" data-sheet="contacts" role="tab" aria-selected="true">07・聯絡人</button>
+              <button class="sheet-tab-btn" data-sheet="accounting" role="tab" aria-selected="false">08・收支記帳簿</button>
+              <button class="sheet-tab-btn" data-sheet="calendar" role="tab" aria-selected="false">09・行事曆</button>
+              <button class="sheet-tab-btn" data-sheet="memo" role="tab" aria-selected="false">10・生活雜事</button>
+            </div>
+          </div>
+
+          <!-- 分頁 07：聯絡人 -->
+          <div class="sheet-panel active" id="panel-contacts" role="tabpanel">
+            <div class="sheet-panel-layout">
+              <div class="sheet-img-box" data-lightbox-index="6" role="button" tabindex="0" aria-label="放大檢視 07_GAS_聯絡人.jpg">
+                <img src="./07_GAS_聯絡人.jpg" alt="07_GAS_聯絡人：Google 試算表聯絡人分頁與同步狀態" />
+              </div>
+              <div class="sheet-info">
+                <span class="sheet-filename">07_GAS_聯絡人.jpg</span>
+                <h3>聯絡人分頁（同步 Google 通訊錄）</h3>
+                <p>
+                  對應圖 03 名片掃描與文字輸入的人脈紀錄。系統自動將單位與職稱整合，並針對 <code>+886</code> 等國際電話格式自動執行單引號防呆轉義，避免試算表出現公式解析錯誤；右側清楚標記 <code>✅ 已同步Google聯絡人</code> 狀態。
+                </p>
+                <div class="schema-box">
+                  <div class="schema-label">試算表對應欄位結構 (SHEET_NAMES.CONTACTS)</div>
+                  <div class="schema-cols">
+                    <span class="schema-col">[A] 記錄時間</span>
+                    <span class="schema-col">[B] 姓名</span>
+                    <span class="schema-col">[C] 電話/手機</span>
+                    <span class="schema-col">[D] Email</span>
+                    <span class="schema-col">[E] 單位/學校/職稱</span>
+                    <span class="schema-col">[F] 備註說明</span>
+                    <span class="schema-col">[G] Google聯絡人同步狀態</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 分頁 08：收支記帳簿 -->
+          <div class="sheet-panel" id="panel-accounting" role="tabpanel">
+            <div class="sheet-panel-layout">
+              <div class="sheet-img-box" data-lightbox-index="7" role="button" tabindex="0" aria-label="放大檢視 08_GAS_收支記帳簿.jpg">
+                <img src="./08_GAS_收支記帳簿.jpg" alt="08_GAS_收支記帳簿：Google 試算表收支記帳紀錄" />
+              </div>
+              <div class="sheet-info">
+                <span class="sheet-filename">08_GAS_收支記帳簿.jpg</span>
+                <h3>收支記帳簿分頁（多源消費自動彙整）</h3>
+                <p>
+                  完整對應圖 04（哈赤拉麵 900 元）與圖 05（詠碩實業 2,480 元）的發票辨識成果，同時支援日常文字如「今天午餐花費 120 元」快速入帳。自動區分餐飲、購物、電信費等類別，保留發票號碼與交易時間以利後續對帳統計。
+                </p>
+                <div class="schema-box">
+                  <div class="schema-label">試算表對應欄位結構 (SHEET_NAMES.ACCOUNTING)</div>
+                  <div class="schema-cols">
+                    <span class="schema-col">[A] 記錄時間</span>
+                    <span class="schema-col">[B] 收支類型</span>
+                    <span class="schema-col">[C] 分類</span>
+                    <span class="schema-col">[D] 項目名稱</span>
+                    <span class="schema-col">[E] 金額(元)</span>
+                    <span class="schema-col">[F] 備註</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 分頁 09：行事曆 -->
+          <div class="sheet-panel" id="panel-calendar" role="tabpanel">
+            <div class="sheet-panel-layout">
+              <div class="sheet-img-box" data-lightbox-index="8" role="button" tabindex="0" aria-label="放大檢視 09_GAS_行事曆.jpg">
+                <img src="./09_GAS_行事曆.jpg" alt="09_GAS_行事曆：Google 試算表行事曆與 Google 日曆雙向同步" />
+              </div>
+              <div class="sheet-info">
+                <span class="sheet-filename">09_GAS_行事曆.jpg</span>
+                <h3>行事曆分頁（連動 Google Calendar）</h3>
+                <p>
+                  以系統當前時區（GMT+8）為基準，將口語時間如「明天下午 3 點在會議室 D 吃下午茶」或活動海報自動推算為精確日期時間，透過 <code>CalendarApp</code> 建立日曆事件（標記 <code>已同步Google日曆</code>），並作為圖 01 每日早安晨報的行程來源。
+                </p>
+                <div class="schema-box">
+                  <div class="schema-label">試算表對應欄位結構 (SHEET_NAMES.CALENDAR)</div>
+                  <div class="schema-cols">
+                    <span class="schema-col">[A] 記錄時間</span>
+                    <span class="schema-col">[B] 事項名稱</span>
+                    <span class="schema-col">[C] 預定日期時間</span>
+                    <span class="schema-col">[D] 地點</span>
+                    <span class="schema-col">[E] 備註</span>
+                    <span class="schema-col">[F] 完成狀態</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 分頁 10：生活雜事 -->
+          <div class="sheet-panel" id="panel-memo" role="tabpanel">
+            <div class="sheet-panel-layout">
+              <div class="sheet-img-box" data-lightbox-index="9" role="button" tabindex="0" aria-label="放大檢視 10_GAS_生活雜事.jpg">
+                <img src="./10_GAS_生活雜事.jpg" alt="10_GAS_生活雜事：Google 試算表待辦事項與完成狀態管理" />
+              </div>
+              <div class="sheet-info">
+                <span class="sheet-filename">10_GAS_生活雜事.jpg</span>
+                <h3>生活雜事分頁（待辦追蹤與自動核銷）</h3>
+                <p>
+                  對應圖 02 的日常隨手備忘（可見第 10 列「回老家修濾水器」）。每筆新備忘預設為「待辦」並納入每日晨報提醒；當在 LINE 輸入 <code>已完成 買牛奶</code> 或 <code>/done</code> 指令時，系統即自動將第 E 欄更新為「已完成」，達成閉環管理。
+                </p>
+                <div class="schema-box">
+                  <div class="schema-label">試算表對應欄位結構 (SHEET_NAMES.MEMO)</div>
+                  <div class="schema-cols">
+                    <span class="schema-col">[A] 記錄時間</span>
+                    <span class="schema-col">[B] 事項主旨</span>
+                    <span class="schema-col">[C] 詳細內容說明</span>
+                    <span class="schema-col">[D] 備註</span>
+                    <span class="schema-col">[E] 處理狀態</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 四張試算表截圖快速總覽列 -->
+        <div class="sheets-overview-grid reveal" aria-label="後端資料表總覽卡片">
+          <div class="sheet-mini-card active" data-sheet-target="contacts">
+            <img src="./07_GAS_聯絡人.jpg" alt="07_GAS_聯絡人 縮圖" loading="lazy" />
+            <div class="sheet-mini-title"><span>聯絡人資料庫</span><span>07</span></div>
+            <div class="sheet-mini-sub">07_GAS_聯絡人.jpg</div>
+          </div>
+          <div class="sheet-mini-card" data-sheet-target="accounting">
+            <img src="./08_GAS_收支記帳簿.jpg" alt="08_GAS_收支記帳簿 縮圖" loading="lazy" />
+            <div class="sheet-mini-title"><span>收支記帳簿</span><span>08</span></div>
+            <div class="sheet-mini-sub">08_GAS_收支記帳簿.jpg</div>
+          </div>
+          <div class="sheet-mini-card" data-sheet-target="calendar">
+            <img src="./09_GAS_行事曆.jpg" alt="09_GAS_行事曆 縮圖" loading="lazy" />
+            <div class="sheet-mini-title"><span>行事曆同步紀錄</span><span>09</span></div>
+            <div class="sheet-mini-sub">09_GAS_行事曆.jpg</div>
+          </div>
+          <div class="sheet-mini-card" data-sheet-target="memo">
+            <img src="./10_GAS_生活雜事.jpg" alt="10_GAS_生活雜事 縮圖" loading="lazy" />
+            <div class="sheet-mini-title"><span>生活雜事與待辦</span><span>10</span></div>
+            <div class="sheet-mini-sub">10_GAS_生活雜事.jpg</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 頁尾 -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-title">Line個人智慧AI小幫手 — 個人免伺服器雲端智慧管家系統</div>
+          <div class="footer-meta">Powered by LINE Messaging API · Google Apps Script · Gemini Multimodal AI · Google Workspace</div>
+        </div>
+        <div class="footer-meta">
+          靜態網頁展示架構：HTML5 + CSS3 + Vanilla JavaScript
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 全螢幕燈箱檢視器 (支援全部 10 張圖切換) -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="圖片放大檢視">
+    <button class="lightbox-close" id="lightboxClose" aria-label="關閉檢視">✕</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="上一張圖片">‹</button>
+    <div class="lightbox-content">
+      <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+      <div class="lightbox-caption-bar">
+        <div class="lightbox-caption-title" id="lightboxTitle"></div>
+        <div class="lightbox-caption-sub" id="lightboxSub"></div>
+      </div>
+    </div>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="下一張圖片">›</button>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
